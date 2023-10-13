@@ -1,16 +1,16 @@
-# Document d'Architecture JEE pour GatherGrid
+# Document d'Architecture JEE pour FEATURES
 
 ![banner](./Images/o1-651f27402642d299178454.png)
 
 ## Introduction ✅
 
-Le présent document vise à décrire l'architecture du projet GatherGrid, une plateforme de gestion d'événements basée sur les technologies Java Enterprise Edition (JEE). Il couvrira les choix technologiques, la structure du projet Maven, ainsi que les technologies principales utilisées, telles que Jakarta EE, Hibernate, JPA, Servlets, JSP et le serveur d'application Tomcat.
+Le présent document vise à décrire l'architecture du projet FEATURES, une plateforme de gestion d'événements basée sur les technologies Java Enterprise Edition (JEE). Il couvrira les choix technologiques, la structure du projet Maven, ainsi que les technologies principales utilisées, telles que Jakarta EE, Hibernate, JPA, Servlets, JSP et le serveur d'application Tomcat.
 
 ## Configuration de l'Environnement de Développement ⚠️
 
 ### Versions des Technologies Utilisées
 
-Pour garantir la compatibilité et la cohérence du projet GatherGrid, assurez-vous d'utiliser les versions spécifiques des technologies suivantes :
+Pour garantir la compatibilité et la cohérence du projet FEATURES, assurez-vous d'utiliser les versions spécifiques des technologies suivantes :
 
 | Technologies              | Version                   |
 |:--------------------------|:--------------------------|
@@ -25,13 +25,13 @@ Pour garantir la compatibilité et la cohérence du projet GatherGrid, assurez-v
   
 ### Configuration de l'Environnement
 
-Si vous souhaitez cloner et exécuter le projet GatherGrid sur votre propre environnement de développement, suivez ces étapes :
+Si vous souhaitez cloner et exécuter le projet FEATURES sur votre propre environnement de développement, suivez ces étapes :
 
 ###### Étape 1 : Importation du Projet
 
 - Clonez le référentiel du projet depuis GitHub en utilisant la commande Git suivante :
 
-        git clone https://github.com/MehdiEz-z/GatherGrid.git
+        git clone https://github.com/nouhailaKhaouti/Features.git
 
 - Importez le projet dans votre environnement de développement (par exemple IntelliJ IDEA) en tant que projet Maven.
 
@@ -62,8 +62,8 @@ Une fois que la configuration Tomcat est correctement définie, vous pouvez lanc
 
 ![Cliquez sur le bouton Run en haut pour lancer le serveur](./Images/editConfig3.JPG)
 
-Ces étapes vous permettront d'importer le projet et de configurer et de lancer Tomcat dans votre environnement de développement, prêt à exécuter votre application GatherGrid. Assurez-vous que les chemins des fichiers et les configurations de Tomcat correspondent à votre environnement spécifique.
+Ces étapes vous permettront d'importer le projet et de configurer et de lancer Tomcat dans votre environnement de développement, prêt à exécuter votre application FEATURES. Assurez-vous que les chemins des fichiers et les configurations de Tomcat correspondent à votre environnement spécifique.
 
-Après avoir lancé le serveur Tomcat, l'application web GatherGrid s'ouvrira automatiquement dans votre navigateur par défaut.
+Après avoir lancé le serveur Tomcat, l'application web FEATURES s'ouvrira automatiquement dans votre navigateur par défaut.
 
-![ L'application web GatherGrid s'ouvre automatiquement](./Images/bienvenu.JPG)
+![ L'application web FEATURES s'ouvre automatiquement](./Images/bienvenu.JPG)
