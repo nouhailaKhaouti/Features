@@ -1,0 +1,55 @@
+main{
+    @include w-h(100%,null);
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: $blue-two;
+    padding: 2rem;
+    @include flex(flex,center,center,null);
+    .box{
+        position: relative;
+        @include w-h(100%,640px);
+        max-width: 1020px;
+        background-color: white;
+        border-radius: 3rem;
+        .interior-box{
+            @include position(absolute,50%,50%);
+            transform: translate(-50%,-50%);
+            width: calc(100% - 3rem);
+            height: calc(100% - 3rem);
+            &.login-mode{
+                .forms{
+                    left: 55%;
+                }
+                .carousel{
+                    left: 0%;
+                }
+                form{
+                    &.login{
+                        opacity: 0;
+                        pointer-events: none
+                    }
+                    &.signup{
+                        opacity: 1;
+                        pointer-events: all;
+                    }
+                }
+            }
+            .forms{
+                @include position(absolute,0,0);
+                @include w-h(45%,100%);
+                @include grid(grid,1fr,1fr);
+                transition: .8s ease-in-out
+            }
+            .carousel{
+                @include position(absolute,0,45%);
+                @include w-h(55%,100%);
+                @include grid(grid,null,auto 1fr);
+                padding-bottom: 2rem;
+                background-color: $blue-tree;
+                border-radius: 2rem;
+                transition: .8s ease-in-out;
+                overflow: hidden;
+            }
+        }
+    }   
+}

@@ -1,0 +1,57 @@
+.images{
+    @include grid(grid,1fr,1fr);
+    .imageC{
+        @include w-h(100%,null);
+        grid-column: 1/2;
+        grid-row: 1/2;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.5s;
+        &.show{
+            opacity: 1;
+            transform: none;
+        }
+    }
+    .img-1{
+        transform: translate(0,-50px);
+    }
+    .img-2{
+        transform: scale(0.4, 0.5);
+    }
+    .img-3{
+        transform: scale(0.3) rotate(-30deg);
+    }
+}
+.text-slider{
+    @include flex(flex,center,center,column);
+    .textSl{
+        max-height: 2.2rem;
+        overflow: hidden;
+        margin-bottom: 2.5rem;
+        .text-group{
+            @include flex(flex,center,null,column);
+            transform: translateY(0);
+            transition: 0.5s;
+            h2{
+                line-height: 2.2rem;
+                @include font(1.8rem,700,$blue-one);
+            }
+        }
+    }
+    .bullets{
+        @include flex(flex,center,center,null);
+        span{
+            display: block;
+            @include w-h(0.5rem,0.5rem);
+            background-color: $blue-two;
+            margin: 0 0.25rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.4s;
+            &.active{
+                width: 1.1rem;
+                background-color: $blue-one;
+                border-radius: 1rem;
+            }
+        }
+    }
+}

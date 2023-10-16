@@ -1,0 +1,14 @@
+//Boutton Login
+.login-btn{
+    @include w-h(100%,45px);
+    @include outline;
+    @include font(0.8rem,null,$white);
+    background-color: $blue-one;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: 0.4s;
+    border-radius: .4rem;
+    &:hover{
+        background-color: $orange;
+    }
+}

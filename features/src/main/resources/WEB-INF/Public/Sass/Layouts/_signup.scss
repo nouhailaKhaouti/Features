@@ -1,0 +1,86 @@
+.signup{
+    @include flex(flex,null,space-evenly,column);
+    @include w-h(100%,100%);
+    max-width: 300px;
+    margin: 0 auto;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.02s 0.4s;
+    .logo{
+        @include flex(flex,center,null,null);
+        img{
+            @include w-h(35px,null);
+            margin-right: 0.3rem;
+        }
+        h3{
+            @include font(2rem,null,$blue-one);
+            letter-spacing: -0.5px;
+            span{
+                color: $orange;
+            }
+        }
+    }
+    .head{
+        h2{
+            @include font(1.8rem,700,$black);
+            margin-bottom: .5rem;
+        }
+        h6{
+            @include font(.65rem,400,$grey);
+            display: inline;
+        }
+        .toggle{
+            @include font(.65rem,700,$black);
+            text-decoration: none;
+            transition: 0.4s;
+            &:hover{
+                color: $blue-two;
+            }
+        }
+    }
+    .form-content{
+        .inputs{
+            position: relative;
+            @include w-h(null,37px);
+            margin-bottom: 2rem;
+            .input-field{
+                position: absolute;
+                @include w-h(100%,100%);
+                @include outline;
+                background: none;
+                border-bottom: 1px solid $grey;
+                @include font(.9rem,null,$black);
+                transition: 0.4s;
+                &.active-input{
+                    border-bottom: 1px solid $blue-two; 
+                    + label{
+                        font-size: .65rem;
+                        top: -2.5px;
+                        color: $blue-two
+                    }
+                }
+
+            }
+            label{
+                @include position(absolute,50%,0);
+                transform: translateY(-50%);
+                @include font(.9rem,null,$grey);
+                pointer-events: none;
+                transition: 0.4s;
+            }
+        }
+        .text{
+            @include font(.65rem,400,$grey);
+            a{
+                @include font(.65rem,700,$black);
+                text-decoration: none;
+                transition: 0.4s;
+                &:hover{
+                    color: $blue-two;
+                } 
+            }
+        }
+    }
+}
