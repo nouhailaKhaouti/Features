@@ -1,4 +1,4 @@
-package com.example.eventmanagementapp.Controller;
+package com.example.eventmanagementapp.Servlet;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

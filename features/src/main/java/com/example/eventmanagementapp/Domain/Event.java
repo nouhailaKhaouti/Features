@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Event {
@@ -84,5 +85,18 @@ public class Event {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(name, event.name) && Objects.equals(date, event.date) && Objects.equals(hour, event.hour) && Objects.equals(lieu, event.lieu) && Objects.equals(description, event.description) && Objects.equals(category, event.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, date, hour, lieu, description, category);
     }
 }
