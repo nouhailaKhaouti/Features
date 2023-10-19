@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BilletRepositoryI {
 
-    public void save(Billet billet)throws SQLException;
+    public boolean save(Billet billet)throws SQLException;
     public void delete(Long id)throws SQLException;
     public void update(Long id,Billet billet)throws SQLException;
     public Billet findById(Long id)throws SQLException;

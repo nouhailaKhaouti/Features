@@ -11,10 +11,6 @@ import java.io.PrintWriter;
 @WebServlet("/hello")
 public class EventServlet extends HttpServlet {
     protected void doGet(HttpServletRequest  req, HttpServletResponse res) throws IOException {
-        res.setContentType("text/html");
-        PrintWriter out=res.getWriter();
-        out.print("<html><body>");
-        out.print("<h1>nouhaila</h1>");
-        out.print("</body></html>");
+              res.sendRedirect("index.jsp");
     }
 }

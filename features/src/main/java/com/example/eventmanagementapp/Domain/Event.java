@@ -14,11 +14,16 @@ public class Event {
     private Date date;
     private Time hour;
     private String lieu;
+    private Integer quantityDispo;
     private String description;
     @ManyToOne
     private Category category;
+    @ManyToOne
+    private UserE user;
     @OneToMany
     private List<Commentaire> commentaires;
+    @OneToMany
+    private List<Billet> billets;
 
     public Event() {
     }
@@ -33,6 +38,22 @@ public class Event {
 
     public Long getId() {
         return id;
+    }
+
+    public UserE getUser() {
+        return user;
+    }
+
+    public void setUser(UserE user) {
+        this.user = user;
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
     }
 
     public void setId(Long id) {
@@ -87,6 +108,21 @@ public class Event {
         this.category = category;
     }
 
+    public Integer getQuantityDispo() {
+        return quantityDispo;
+    }
+
+    public void setQuantityDispo(Integer quantityDispo) {
+        this.quantityDispo = quantityDispo;
+    }
+
+    public List<Billet> getBillets() {
+        return billets;
+    }
+
+    public void setBillets(List<Billet> billets) {
+        this.billets = billets;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

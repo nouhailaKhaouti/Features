@@ -16,12 +16,17 @@ public class BilletRepository implements BilletRepositoryI {
     }
 
     @Override
-    public void save(Billet billet) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(billet);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+    public boolean save(Billet billet) {
+        try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.persist(billet);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Override

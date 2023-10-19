@@ -5,8 +5,8 @@ import com.example.eventmanagementapp.Repositories.facad.EventRepositoryI;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class EventRepository implements EventRepositoryI {
@@ -47,35 +47,52 @@ public class EventRepository implements EventRepositoryI {
     }
 
     @Override
-    public void update(Long eventId, Event updatedEvent) {
+    public boolean update(Event updatedEvent) {
         EntityManager entityManager=entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-
-        Event event = entityManager.find(Event.class, eventId);
-        if (event != null) {
+        try {
+            entityManager.getTransaction().begin();
+            Event event = new Event();
             event.setName(updatedEvent.getName());
             event.setDescription(updatedEvent.getDescription());
             event.setDate(updatedEvent.getDate());
             event.setLieu(updatedEvent.getLieu());
             event.setHour(updatedEvent.getHour());
             entityManager.merge(event);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return true;
+        }catch (Exception e){
+            return false;
         }
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
     }
 
     @Override
-    public void delete(Long eventId) {
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+    public boolean delete(Long eventId) {
+        try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
 
-        Event event = entityManager.find(Event.class, eventId);
-        if (event != null) {
-            entityManager.remove(event);
+            Event event = entityManager.find(Event.class, eventId);
+            if (event != null) {
+                entityManager.remove(event);
+            }
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return true;
+        }catch (Exception e){
+            return false;
         }
+    }
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+    @Override
+    public Integer CalculateTicket(Long id){
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            String sql = "SELECT count(*) FROM Event e Join Billet b On e.id=b.event.id where e.id=:id";
+            TypedQuery<Integer> query = entityManager.createQuery(sql, Integer.class);
+            query.setParameter("id", id);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

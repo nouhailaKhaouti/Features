@@ -8,8 +8,9 @@ import java.util.List;
 public interface EventRepositoryI {
 
     public boolean save(Event event)throws SQLException;
-    public void delete(Long id)throws SQLException;
-    public void update(Long id,Event event)throws SQLException;
+    public boolean delete(Long id)throws SQLException;
+    public boolean update(Event event)throws SQLException;
     public Event findById(Long id)throws SQLException;
     public List<Event> getAllEvents()throws SQLException;
-}
+    public Integer CalculateTicket(Long id)throws SQLException;
+    }

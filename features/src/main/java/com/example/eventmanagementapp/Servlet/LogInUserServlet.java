@@ -4,6 +4,8 @@ import com.example.eventmanagementapp.Domain.ResponseEntity;
 import com.example.eventmanagementapp.Domain.UserE;
 import com.example.eventmanagementapp.Repositories.Imp.UserRepository;
 import com.example.eventmanagementapp.Services.Imp.UserService;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +18,7 @@ import java.sql.SQLException;
 @WebServlet(name="logIn", value="/logIn")
 public class LogInUserServlet extends HttpServlet {
     UserService userService=new UserService(new UserRepository());
-    protected void doPost(HttpServletRequest req , HttpServletResponse res) throws IOException {
+    protected void doPost(HttpServletRequest req , HttpServletResponse res) throws IOException, ServletException {
         UserE user=new UserE();
         user.setEmail(req.getParameter("email"));
         user.setPassword(req.getParameter("password"));
@@ -31,7 +33,8 @@ public class LogInUserServlet extends HttpServlet {
             session.setAttribute("email",user.getEmail());
             session.setAttribute("message",response.getMessage());
             session.setAttribute("code",response.getCode());
-            res.sendRedirect("index.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/home");
+            dispatcher.forward(req, res);
         }else{
             HttpSession session= req.getSession();
             session.setAttribute("message",response.getMessage());

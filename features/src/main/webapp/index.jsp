@@ -19,7 +19,6 @@
 </head>
 <body>
     <main>
-
         <div class="box">
             <% if(session.getAttribute("message") != null) {
                 Object codeAttribute= session.getAttribute("code");
