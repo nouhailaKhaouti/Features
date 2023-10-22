@@ -1,5 +1,6 @@
 package com.example.eventmanagementapp.Repositories.Imp;
 
+import com.example.eventmanagementapp.Config.EntityManagerConfig;
 import com.example.eventmanagementapp.Domain.Category;
 import com.example.eventmanagementapp.Domain.UserE;
 import com.example.eventmanagementapp.Repositories.facad.CategoryRepositoryI;
@@ -9,23 +10,21 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CategoryRepository implements CategoryRepositoryI {
-    private final EntityManagerFactory entityManagerFactory;
+    private final EntityManager entityManager= EntityManagerConfig.getEntityManager();
 
 
     public CategoryRepository() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("my-persistence-unit");
     }
 
     @Override
     public boolean save(Category category) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(category);
             entityManager.getTransaction().commit();
-            entityManager.close();
             return true;
         }catch (Exception e){
             return false;
@@ -34,58 +33,45 @@ public class CategoryRepository implements CategoryRepositoryI {
     }
 
     @Override
-    public Category findById(Long id) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Category category = entityManager.find(Category.class, id);
-        entityManager.close();
-        return category;
+    public Optional<Category> findById(Long id) {
+        String sql = "SELECT u FROM Category u WHERE u.id = :id";
+        TypedQuery<Category> query = entityManager.createQuery(sql, Category.class);
+        query.setParameter("id", id);
+        return query.getResultStream().findAny();
     }
     @Override
-    public Category findByName(String name) {
-        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+    public Optional<Category> findByName(String name) {
             String sql = "SELECT u FROM Category u WHERE u.name = :name";
             TypedQuery<Category> query = entityManager.createQuery(sql, Category.class);
             query.setParameter("name", name);
-            return query.getSingleResult();
-        } catch (Exception e) {
-            return null;
-        }
+            return query.getResultStream().findAny();
     }
     @Override
     public List<Category> getAllCategories() {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Category> categorys = entityManager.createQuery("SELECT u FROM Category u", Category.class).getResultList();
-        entityManager.close();
-        return categorys;
+        return entityManager.createQuery("SELECT u FROM Category u", Category.class).getResultList();
     }
 
     @Override
-    public void update(Long categoryId, Category updatedCategory) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-
-        Category category = entityManager.find(Category.class, categoryId);
-        if (category != null) {
-            category.setName(updatedCategory.getName());
-            category.setDescription(updatedCategory.getDescription());
-            entityManager.merge(category);
+    public boolean update(Category updatedCategory) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(updatedCategory);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            return false;
         }
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
     }
 
     @Override
-    public void delete(Long categoryId) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-
-        Category category = entityManager.find(Category.class, categoryId);
-        if (category != null) {
+    public boolean delete(Category category) {
+        try {
+            entityManager.getTransaction().begin();
             entityManager.remove(category);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            return false;
         }
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
     }
 }

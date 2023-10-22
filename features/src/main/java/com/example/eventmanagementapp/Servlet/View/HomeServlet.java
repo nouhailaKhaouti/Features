@@ -1,7 +1,9 @@
-package com.example.eventmanagementapp.Servlet;
+package com.example.eventmanagementapp.Servlet.View;
 
 import com.example.eventmanagementapp.Repositories.Imp.CategoryRepository;
+import com.example.eventmanagementapp.Repositories.Imp.EventRepository;
 import com.example.eventmanagementapp.Services.Imp.CategoryService;
+import com.example.eventmanagementapp.Services.Imp.EventService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,25 +18,18 @@ import java.sql.SQLException;
 public class HomeServlet extends HttpServlet {
 
     CategoryService categoryService=new CategoryService(new CategoryRepository());
+    EventService eventService=new EventService(new EventRepository());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getSession().getAttribute("email")!=null) {
             try {
+                req.setAttribute("events",eventService.findAll());
                 req.setAttribute("categories", categoryService.findAll());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
             RequestDispatcher dispatcher = req.getRequestDispatcher("/home.jsp");
             dispatcher.forward(req, resp);
-        }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
-        dispatcher.forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-          this.doGet(req,resp);
     }
 
 }

@@ -12,6 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class UserService  {
     private final UserRepositoryI userRepositoryI;
@@ -22,7 +23,7 @@ public class UserService  {
 
     public ResponseEntity create(UserE user) throws SQLException {
         if(user!=null){
-            if(userRepositoryI.findByEmail(user.getEmail())==null){
+            if(userRepositoryI.findByEmail(user.getEmail()).isEmpty()){
                 if (user.getPassword() != null) {
                     String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
                     user.setPassword(hashedPassword);
@@ -41,11 +42,11 @@ public class UserService  {
     }
 
     public ResponseEntity logIn(UserE user) throws SQLException{
-        UserE newUser=userRepositoryI.findByEmail(user.getEmail());
-        if(newUser!=null){
-            if(BCrypt.checkpw(user.getPassword(), newUser.getPassword())){
+        Optional<UserE> newUser=userRepositoryI.findByEmail(user.getEmail());
+        if(newUser.isPresent()){
+            if(BCrypt.checkpw(user.getPassword(), newUser.get().getPassword())){
 
-                return new ResponseEntity(newUser.getUsername()+" Welcome",200);
+                return new ResponseEntity(newUser.get().getUsername()+" Welcome",200);
             }else{
                 return new ResponseEntity("the password your providing is incorrect",404);
             }
@@ -53,4 +54,32 @@ public class UserService  {
             return new ResponseEntity("there's no user with the email you provided",404);
         }
     }
+
+    public ResponseEntity UpdatePassword(UserE user) throws SQLException{
+        Optional<UserE> newUser=userRepositoryI.findByEmail(user.getEmail());
+        if(newUser.isPresent()){
+            if(BCrypt.checkpw(user.getPassword(), newUser.get().getPassword())){
+               newUser.get().setPassword(BCrypt.hashpw(user.getPassword(),BCrypt.gensalt()));
+               if(userRepositoryI.update(newUser.get())){
+                   return new ResponseEntity("Your password has been ",200);
+               }
+                return new ResponseEntity("An error occurred while changing your password ",404);
+            }else{
+                return new ResponseEntity("Incorrect credential",404);
+            }
+        }
+        return new ResponseEntity("Can't find a user with the email provided",404);
+    }
+
+    public ResponseEntity Update(UserE user) throws SQLException{
+        Optional<UserE> newUser=userRepositoryI.findByEmail(user.getEmail());
+        if(newUser.isPresent()){
+                if(userRepositoryI.update(newUser.get())){
+                    return new ResponseEntity("Your password has been ",200);
+                }
+                return new ResponseEntity("An error occurred while updating your profile ",404);
+        }
+        return new ResponseEntity("Can't find a user with the email provided",404);
+    }
+
 }

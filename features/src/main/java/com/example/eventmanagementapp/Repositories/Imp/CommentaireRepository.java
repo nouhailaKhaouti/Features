@@ -1,72 +1,66 @@
 package com.example.eventmanagementapp.Repositories.Imp;
 
+import com.example.eventmanagementapp.Config.EntityManagerConfig;
 import com.example.eventmanagementapp.Domain.Commentaire;
 import com.example.eventmanagementapp.Repositories.facad.CommentaireRepositoryI;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CommentaireRepository implements CommentaireRepositoryI {
-    private final EntityManagerFactory entityManagerFactory;
+    private final EntityManager entityManager= EntityManagerConfig.getEntityManager();
 
     public CommentaireRepository() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("my-persistence-unit");
     }
 
     @Override
-    public void save(Commentaire commentaire) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(commentaire);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-    }
-
-    @Override
-    public Commentaire findById(Long id) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Commentaire commentaire = entityManager.find(Commentaire.class, id);
-        entityManager.close();
-        return commentaire;
-    }
-
-    @Override
-    public List<Commentaire> getAllCommentaires() {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Commentaire> commentaires = entityManager.createQuery("SELECT u FROM Commentaire u", Commentaire.class).getResultList();
-        entityManager.close();
-        return commentaires;
-    }
-
-    @Override
-    public void update(Long commentaireId, Commentaire updatedCommentaire) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-
-        Commentaire commentaire = entityManager.find(Commentaire.class, commentaireId);
-        if (commentaire != null) {
-            commentaire.setText(updatedCommentaire.getText());
-            commentaire.setEvaluation(updatedCommentaire.getEvaluation());
-            entityManager.merge(commentaire);
+    public boolean save(Commentaire commentaire) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(commentaire);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            return false;
         }
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
     }
 
     @Override
-    public void delete(Long commentaireId) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+    public Optional<Commentaire> findById(Long id) {
+        String sql = "SELECT u FROM Commentaire u WHERE u.id = :id";
+        TypedQuery<Commentaire> query = entityManager.createQuery(sql, Commentaire.class);
+        query.setParameter("id", id);
+        return query.getResultStream().findAny();
+    }
+    @Override
+    public List<Commentaire> getAllCommentaire(Long id) {
+        return entityManager.createQuery("SELECT u FROM Commentaire u where u.event.id=id", Commentaire.class).getResultList();
+    }
 
-        Commentaire commentaire = entityManager.find(Commentaire.class, commentaireId);
-        if (commentaire != null) {
+    @Override
+    public boolean update(Commentaire updatedCommentaire) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(updatedCommentaire);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(Commentaire commentaire) {
+        try {
+            entityManager.getTransaction().begin();
             entityManager.remove(commentaire);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch (Exception e){
+            return false;
         }
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
     }
 }

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -128,11 +126,11 @@
     <!-- end login -->
 </nav>
 
-    <% if(session.getAttribute("message") != null) {
+    <%if(session.getAttribute("message") != null) {
                 Object codeAttribute= session.getAttribute("code");
                 boolean isCode200 = codeAttribute != null && codeAttribute.toString().equals("200");
-            %>
-<div class=<%= isCode200 ? "alert_danger" : "alert_success" %>>
+    %>
+<div class=<%= isCode200 ? "alert_success" : "alert_danger" %>>
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
     <%= session.getAttribute("message") %>
 </div>

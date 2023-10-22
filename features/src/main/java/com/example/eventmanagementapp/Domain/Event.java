@@ -14,7 +14,6 @@ public class Event {
     private Date date;
     private Time hour;
     private String lieu;
-    private Integer quantityDispo;
     private String description;
     @ManyToOne
     private Category category;
@@ -106,14 +105,6 @@ public class Event {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Integer getQuantityDispo() {
-        return quantityDispo;
-    }
-
-    public void setQuantityDispo(Integer quantityDispo) {
-        this.quantityDispo = quantityDispo;
     }
 
     public List<Billet> getBillets() {

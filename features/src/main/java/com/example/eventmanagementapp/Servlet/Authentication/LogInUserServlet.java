@@ -1,4 +1,4 @@
-package com.example.eventmanagementapp.Servlet;
+package com.example.eventmanagementapp.Servlet.Authentication;
 
 import com.example.eventmanagementapp.Domain.ResponseEntity;
 import com.example.eventmanagementapp.Domain.UserE;

@@ -1,4 +1,4 @@
-package com.example.eventmanagementapp.Servlet;
+package com.example.eventmanagementapp.Servlet.Crud;
 
 import com.example.eventmanagementapp.Domain.ResponseEntity;
 import com.example.eventmanagementapp.Domain.UserE;
