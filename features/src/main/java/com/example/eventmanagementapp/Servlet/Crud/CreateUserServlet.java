@@ -25,9 +25,8 @@ public class CreateUserServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-            HttpSession session= req.getSession();
-            session.setAttribute("message",response.getMessage());
-            session.setAttribute("code",response.getCode());
+        req.getSession(true).setAttribute("message",response.getMessage());
+        req.getSession(true).setAttribute("code",response.getCode());
             res.sendRedirect("index.jsp");
     }
 }

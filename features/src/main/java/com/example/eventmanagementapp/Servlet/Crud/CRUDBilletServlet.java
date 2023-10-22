@@ -49,8 +49,8 @@ public class CRUDBilletServlet extends HttpServlet {
             response.setMessage("an error occurred while creating this billet");
             response.setCode(404);
         }
-        req.getSession().setAttribute("message", response.getMessage());
-        req.getSession().setAttribute("code", response.getCode());
+        req.getSession(true).setAttribute("message", response.getMessage());
+        req.getSession(true).setAttribute("code", response.getCode());
         res.sendRedirect(req.getContextPath());
     }
 }

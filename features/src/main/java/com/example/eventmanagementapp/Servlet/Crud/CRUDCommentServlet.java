@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "Commentaire", value = "/Commentaire")
-public class CRUDCommentaireServlet extends HttpServlet {
+@WebServlet(name = "Comment", value = "/Comment")
+public class CRUDCommentServlet extends HttpServlet {
     CommentaireService CommentaireService = new CommentaireService(new CommentaireRepository());
 
     @Override
@@ -24,7 +24,7 @@ public class CRUDCommentaireServlet extends HttpServlet {
             try {
                 response = CommentaireService.delete(Long.valueOf(Id));
             } catch (SQLException e) {
-                response.setMessage("an error occurred why trying to delete this Commentaire");
+                response.setMessage("an error occurred why trying to delete this Comment");
                 response.setCode(404);
             }
         } else {
@@ -44,9 +44,9 @@ public class CRUDCommentaireServlet extends HttpServlet {
         if (action != null) {
             if (action.equals("create")) {
                 try {
-                    response = CommentaireService.create(setParameter(req, res));
+                    response = CommentaireService.create(setParameter(req));
                 } catch (SQLException e) {
-                    response.setMessage("an error occurred while creating this Commentaire");
+                    response.setMessage("an error occurred while creating this Comment");
                     response.setCode(404);
                 }
                 req.getSession().setAttribute("message", response.getMessage());
@@ -54,11 +54,11 @@ public class CRUDCommentaireServlet extends HttpServlet {
                 res.sendRedirect(req.getContextPath());
             } else if (action.equals("update")) {
                 try {
-                    Commentaire Commentaire = setParameter(req, res);
+                    Commentaire Commentaire = setParameter(req);
                     Commentaire.setId(Long.valueOf(req.getParameter("id")));
                     response = CommentaireService.update(Commentaire);
                 } catch (SQLException e) {
-                    response.setMessage("an error occurred while creating this Commentaire");
+                    response.setMessage("an error occurred while creating this Comment");
                     response.setCode(404);
                 }
             } else {
@@ -68,12 +68,12 @@ public class CRUDCommentaireServlet extends HttpServlet {
             response.setMessage("No action specified..");
             response.setCode(404);
         }
-        req.getSession().setAttribute("message", response.getMessage());
-        req.getSession().setAttribute("code", response.getCode());
+        req.getSession(true).setAttribute("message", response.getMessage());
+        req.getSession(true).setAttribute("code", response.getCode());
         res.sendRedirect(req.getContextPath());
     }
 
-    public Commentaire setParameter(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    public Commentaire setParameter(HttpServletRequest req) {
         Commentaire Commentaire = new Commentaire();
         Commentaire.setText(req.getParameter("name"));
         Commentaire.setEvaluation(Integer.valueOf(req.getParameter("description")));

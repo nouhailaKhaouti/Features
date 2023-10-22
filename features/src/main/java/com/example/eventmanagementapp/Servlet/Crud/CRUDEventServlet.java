@@ -4,7 +4,6 @@ import com.example.eventmanagementapp.Domain.*;
 import com.example.eventmanagementapp.Domain.Enums.BilletType;
 import com.example.eventmanagementapp.Repositories.Imp.EventRepository;
 import com.example.eventmanagementapp.Services.Imp.EventService;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ public class CRUDEventServlet extends HttpServlet {
     EventService eventService=new EventService(new EventRepository());
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String itemId = req.getParameter("id");
         ResponseEntity response= new ResponseEntity();
         if (itemId != null) {

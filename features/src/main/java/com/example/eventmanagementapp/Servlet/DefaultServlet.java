@@ -12,12 +12,7 @@ import java.io.IOException;
 
 @WebServlet(value = "",loadOnStartup = 1)
 public class DefaultServlet extends HttpServlet {
-    @Override
-    public void init(){
-        EventService eventService=new EventService(new EventRepository());
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("/home").forward(request, response);
     }
 }
