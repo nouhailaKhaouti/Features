@@ -14,10 +14,10 @@
 	background-color: #FDB752;
 }
 #carouselExampleIndicators {
-  width: 100%;
-  overflow: hidden;
-  padding: 70px 0 0;
-  height: 100vh;
+	width: 100%;
+	overflow: hidden;
+	padding: 70px 0 0;
+	height: 100vh;
 }
 #carouselExampleIndicators::before{
 	position: absolute;
@@ -33,18 +33,18 @@
 }
 
 .carousel-inner {
-  width: 100%;
+	width: 100%;
 }
 
 .carousel-item {
-  object-fit: cover;
-  width: 100%; 
-  height: 100%; 
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
 }
 
 .carousel-item img {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 .badge-card{
 	background-color: #FDB752;
@@ -71,16 +71,16 @@
 }
 .descrip h3::after{
 	background-color: #FDB752;
-    content: "";
-    display: block;
-    height: 1px;
-    margin-left: 12px;
-    width: 100%;
+	content: "";
+	display: block;
+	height: 1px;
+	margin-left: 12px;
+	width: 100%;
 }
 .descrip p{
 	font-size: 16px;
-    opacity: 1;
-    text-align: justify;
+	opacity: 1;
+	text-align: justify;
 }
 .section-header img{
 	width: 150px;
@@ -92,123 +92,33 @@
 }
 .section-header h4{
 	font-size: 15px;
-    font-weight: 300;
+	font-weight: 300;
 }
-/* .banner{
-	position: relative;
+.affiche-profile{
 	width: 100%;
-	min-height: 100vh;
-	padding: 0 100px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background: url("../images/affiche1.png") no-repeat;
-	background-size: cover;
+	height: 250px;
+	border-radius: .5rem;
 	overflow: hidden;
-	transition: .5s;
+	border: .3rem solid white;
+	position: relative;
+	margin-bottom: 6rem;
 }
-.banner::before{
-	position: absolute;
-	content: '';
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+.profile-banner{
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.8);
+	object-fit: cover;
+	filter: brightness(0.8);
 }
-.content{
-	position: relative;
-	max-width: 580px;
-	display: none;
-	visibility: hidden;
-	transform: scale(0);
-	transition: .5s;
+.profile-body{
+	top: -100%;
+	transition: .8s;
 }
-.content.active{
-	display: block;
-	visibility: visible;
-	transform: scale(1);
-	transition: .5s;
+.profile-img{
+	border: .3rem solid white;
+	border-radius: .6rem;
+	width: 10rem;
 }
-.banner .content h4{
-	color: rgba(255, 255, 255, 0.6);
-	font-weight: 400;
-	font-size: 20px;
+.profile-infos{
+	position: absolute;
+	top: 10rem;
 }
-.banner .content h4 span{
-	padding: 0 10px;
-	border-right: 1px solid white;
-	align-items: center;
-	font-weight: 700;
-	font-size: 19px;	
-}
-.banner .content h4 span:first-child{
-	padding-left: 0;
-}
-.banner .content h4 span:last-child{
-	border-right: none;
-	color: #FDB752;
-}
-.banner .content h4 span i{
-	background: #fdb752;
-	color: white;
-	padding: 0 8px;
-	display: inline-block;
-	border-radius: 3px;
-}
-.banner .content p{
-	font-size: 1em;
-	font-weight: 300;
-	line-height: 1.5em;
-	color: white;
-	margin: 10px 0 20px;
-}
-.banner .content .button{
-	position: relative;
-}
-.banner .content .button a{
-	position: relative;
-	display: inline-block;
-	background: #FDB752;
-	color: white;
-	padding: 6px 20px;
-	text-decoration: none;
-	font-weight: bold;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: .5s;
-	cursor: pointer;
-	border-radius: 5px;
-	border: 1px solid #FDB752;
-}
-.banner .content .button a:hover{
-	background: rgba(255, 255, 255, 0.1);
-	border: 1px solid #FDB752;
-}
-.banner .carousel-box{
-	position: relative;
-	min-width: 700px;
-	height: 250px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: rgba(255, 255, 255, 0);
-	box-shadow: 20px 20px 50px rgba(255, 255, 255, 0.1);
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	backdrop-filter: blur(20px);
-	border-radius: 10px;
-}
-.carousel{
-	position: relative;
-	perspective: 1500;
-}
-.carousel .carousel-item{
-	width: 250px;
-	cursor: pointer;
-}
-.carousel .carousel-item img{
-	max-width: 250px;
-	border-radius: 10px;
-} */
