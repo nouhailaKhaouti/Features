@@ -3,7 +3,6 @@ package com.example.eventmanagementapp.Domain;
 import jakarta.persistence.*;
 import java.sql.Time;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,10 +18,10 @@ public class Event {
     private Category category;
     @ManyToOne
     private UserE user;
-    @OneToMany
-    private List<Commentaire> commentaires;
-    @OneToMany
-    private List<Billet> billets;
+/*    @OneToMany
+    private List<Commentaire> commentaires;*/
+/*    @OneToMany
+    private List<Billet> billets;*/
 
     public Event() {
     }
@@ -47,13 +46,13 @@ public class Event {
         this.user = user;
     }
 
-    public List<Commentaire> getCommentaires() {
+/*    public List<Commentaire> getCommentaires() {
         return commentaires;
     }
 
     public void setCommentaires(List<Commentaire> commentaires) {
         this.commentaires = commentaires;
-    }
+    }*/
 
     public void setId(Long id) {
         this.id = id;
@@ -107,13 +106,13 @@ public class Event {
         this.category = category;
     }
 
-    public List<Billet> getBillets() {
+/*    public List<Billet> getBillets() {
         return billets;
     }
 
     public void setBillets(List<Billet> billets) {
         this.billets = billets;
-    }
+    }*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

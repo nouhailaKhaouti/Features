@@ -14,4 +14,5 @@ public interface BilletRepositoryI {
     public Optional<Billet> findById(Long id)throws SQLException;
     public List<Billet> getAllBillets()throws SQLException;
     public Optional<Billet> findByEventType(Billet billet)throws SQLException;
+    public List<Billet> getAll(Long id) throws SQLException;
 }

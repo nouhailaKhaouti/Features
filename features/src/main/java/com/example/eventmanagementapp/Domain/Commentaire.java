@@ -15,8 +15,8 @@ public class Commentaire {
     private Date dateDeCreation;
     @ManyToOne
     private UserE user;
-/*    @ManyToOne
-    private Event event;*/
+    @ManyToOne
+    private Event event;
 
     public Date getDateDeCreation() {
         return dateDeCreation;
@@ -58,13 +58,13 @@ public class Commentaire {
         this.user = user;
     }
 
-/*    public Event getEvent() {
+    public Event getEvent() {
         return event;
     }
 
     public void setEvent(Event event) {
         this.event = event;
-    }*/
+    }
 
     public Commentaire(String text, Integer evaluation, UserE user) {
         this.text = text;

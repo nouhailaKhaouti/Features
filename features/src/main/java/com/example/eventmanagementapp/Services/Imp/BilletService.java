@@ -5,6 +5,7 @@ import com.example.eventmanagementapp.Domain.ResponseEntity;
 import com.example.eventmanagementapp.Repositories.facad.BilletRepositoryI;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class BilletService {
@@ -44,6 +45,10 @@ public class BilletService {
             return new ResponseEntity("An error occurred while deleting this ticket ",404);
         }
         return new ResponseEntity("The ticket your trying to delete doesn't exist",404);
+    }
+
+    public List<Billet> findByEvent(Long id) throws SQLException {
+        return billetRepositoryI.getAll(id);
     }
 
 }

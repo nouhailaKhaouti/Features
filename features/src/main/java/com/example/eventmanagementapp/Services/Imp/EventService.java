@@ -90,6 +90,9 @@ public class EventService {
        return eventRepositoryI.getAllEvents();
    }
 
+   public Event findById(Long id)throws SQLException{
+        return eventRepositoryI.findById(id);
+   }
    public List<Event> findByName(String name)throws SQLException{
         //TODO : VALIDATION
        return eventRepositoryI.getAllEvents();

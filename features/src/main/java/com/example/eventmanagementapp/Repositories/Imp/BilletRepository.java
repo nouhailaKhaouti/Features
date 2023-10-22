@@ -3,6 +3,7 @@ package com.example.eventmanagementapp.Repositories.Imp;
 import com.example.eventmanagementapp.Config.EntityManagerConfig;
 import com.example.eventmanagementapp.Domain.Billet;
 import com.example.eventmanagementapp.Domain.Category;
+import com.example.eventmanagementapp.Domain.Commentaire;
 import com.example.eventmanagementapp.Repositories.facad.BilletRepositoryI;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -72,5 +73,13 @@ public class BilletRepository implements BilletRepositoryI {
         query.setParameter("id", billet.getEvent().getId());
         query.setParameter("type", billet.getBilletType());
         return query.getResultStream().findAny();
+    }
+
+    @Override
+    public List<Billet> getAll(Long id) {
+        String sql = "SELECT u FROM Billet u WHERE u.event.id = :id ";
+        TypedQuery<Billet> query = entityManager.createQuery(sql, Billet.class);
+        query.setParameter("id", id);
+        return query.getResultList();
     }
 }

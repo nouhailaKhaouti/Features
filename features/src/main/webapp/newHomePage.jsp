@@ -11,7 +11,7 @@
     <title>Features</title>
     <!-- App favicon -->
     <link rel="shortcut icon" href="Assets/Images/logo-f.png">
-    <!-- jquery.vectormap css -->
+    <!-- jquery.vector-map css -->
     <link href="Assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
 
     <!-- DataTables -->
@@ -57,235 +57,183 @@
 </head>
 <body data-topbar="light">
 
-<div id="layout-wrapper">
-
-    <header id="page-topbar">
-        <div class="navbar-header">
-
-            <div class="d-flex">
-                <!-- LOGO -->
-                <div class="navbar-brand-box">
-
-                    <a href="newHomePage.jsp" class="logo logo-dark">
-                                <span class="logo-sm">
-                                    <img src="Assets/Images/logo-f.png" alt="logo-sm" height="35">
-                                </span>
-                        <span class="logo-lg">
-                                    <img src="Assets/Images/logo2-f.png" alt="logo-dark" height="40">
-                                </span>
-                    </a>
-                </div>
-
-                <!-- App Search-->
-                <form class="app-search d-none d-md-block">
-                    <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <span class="ri-search-line"></span>
+    <div id="layout-wrapper">
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <div class="navbar-brand-box">
+                        <a href="newHomePage.jsp" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="./Assets/Images/logo-f.png" alt="logo-sm" height="35">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="./Assets/Images/logo2-f.png" alt="logo-dark" height="40">
+                            </span>
+                        </a>
                     </div>
-                </form>
 
-                <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
-                    <button type="button" class="btn header-item waves-effect fw-bold" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-                        Choose Category
-                        <i class="mdi mdi-chevron-down"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-megamenu bg-light">
-
-                        <div class="row">
-                            <div class="col-sm">
-
-                                <div class="row">
-                                    <c:forEach items="${categories}" var="category" >
-                                        <div class="col-md-2 d-flex justify-content-center">
-                                            <a class="fw-bold text-reset" href="#">${category.name}</a>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                            </div>
+                    <form class="app-search d-none d-md-block">
+                        <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="ri-search-line"></span>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </form>
 
-            <div class="d-flex align-items-center">
-                <div class="dropdown d-inline-block d-md-none ms-2 me-2">
-                    <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="ri-search-line"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                         aria-labelledby="page-header-search-dropdown">
-
-                        <form class="p-3">
-                            <div class="mb-3 m-0">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search ...">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-warning text-white" type="submit"><i class="ri-search-line"></i></button>
+                    <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
+                        <button type="button" class="btn header-item waves-effect fw-bold" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                            Choose Category
+                            <i class="mdi mdi-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-megamenu bg-light">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="row">
+                                        <c:forEach items="${categories}" var="category">
+                                            <div class="col-md-2 d-flex justify-content-center">
+                                                <a class="fw-bold text-reset" href="#">${category.name}</a>
+                                            </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-                <div class="d-none d-sm-inline-block me-5">
-                    <a class="fw-bold text-reset" href="#">Create Events</a>
-                </div>
-                <c:choose>
-                    <c:when test="${empty sessionScope.email}">
-                        <div class="d-none d-sm-inline-block me-4">
-                            <a class="fw-bold text-reset" href="${pageContext.request.contextPath}/Auth">Login</a>
-                        </div>
-                        <div class="d-none d-sm-inline-block me-5">
-                            <a href="${pageContext.request.contextPath}/Auth" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">Signup</a>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        Welcome Nouhaila
-                        <div class="d-none d-sm-inline-block mx-3">
-                            <form action="${pageContext.request.contextPath}/logOut" method="post">
-                                <button type="submit" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">LogOut</button>
+
+                <div class="d-flex align-items-center">
+                    <div class="dropdown d-inline-block d-md-none ms-2 me-2">
+                        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ri-search-line"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                             aria-labelledby="page-header-search-dropdown">
+                            <form class="p-3">
+                                <div class="mb-3 m-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search ...">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-warning text-white" type="submit"><i class="ri-search-line"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
-                    </c:otherwise>
-                </c:choose>
-                <div class="dropdown dropdown d-inline-block d-sm-none">
-                    <button type="button" class="btn header-item noti-icon waves-effect"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class=" ri-settings-4-fill"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a class="dropdown-item fs-5 text-secondary" href="#"><i class="ri-map-pin-user-fill align-middle me-1 fs-2 text-secondary"></i> Login</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item fs-5 text-secondary" href="#"><i class="ri-account-pin-box-line align-middle me-1 fs-2 text-secondary"></i> Signup</a>
+                    </div>
+                    <div class="d-none d-sm-inline-block me-5">
+                        <a class="fw-bold text-reset" href="#">Create Events</a>
+                    </div>
+                    <c:choose>
+                        <c:when test="${empty sessionScope.email}">
+                            <div class="d-none d-sm-inline-block me-4">
+                                <a class="fw-bold text-reset" href="${pageContext.request.contextPath}/Auth">Login</a>
+                            </div>
+                            <div class="d-none d-sm-inline-block me-5">
+                                <a href="${pageContext.request.contextPath}/Auth" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">Signup</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            Welcome Nouhaila
+                            <div class="d-none d-sm-inline-block mx-3">
+                                <form action="${pageContext.request.contextPath}/logOut" method="post">
+                                    <button type="submit" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">LogOut</button>
+                                </form>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                    <div class="dropdown dropdown d-inline-block d-sm-none">
+                        <button type="button" class="btn header-item noti-icon waves-effect"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class=" ri-settings-4-fill"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item fs-5 text-secondary" href="#"><i class="ri-map-pin-user-fill align-middle me-1 fs-2 text-secondary"></i> Login</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item fs-5 text-secondary" href="#"><i class="ri-account-pin-box-line align-middle me-1 fs-2 text-secondary"></i> Signup</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
-<%--<jsp:include page="carousel.jsp"/>--%>
-    <%--carousel--%>
-    <div class="main">
-        <div class="row m-0 p-0 pb-5">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="_"></li>
-                </ol>
-                <div class="carousel-inner" role="listbox">
-                    <div class="carousel-item active">
-                        <img class="d-block" src="Assets/Images/affiche1.png" alt="First slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block" src="Assets/Images/affiche2.jpg" alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block" src="Assets/Images/affiche3.jpg" alt="Third slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block" src="Assets/Images/affiche4.png" alt="Fourth slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block" src="Assets/Images/affiche5.jpg" alt="Fifth slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block" src="Assets/Images/affiche6.png" alt="Sixth slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block" src="Assets/Images/affiche7.png" alt="seventh slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block" src="Assets/Images/affiche8.jpg" alt="Eighth slide">
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
+        </header>
 
-        <%--display message--%>
-        <c:if test="${not empty sessionScope.message}">
-            <c:set var="code" value="${sessionScope.code}" />
-            <c:set var="isCode200" value="${code == 200}" />
-            <div class="<c:choose><c:when test='${isCode200}'>alert_success</c:when><c:otherwise>alert_danger</c:otherwise></c:choose>">
-                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    ${sessionScope.message}
+        <div class="main">
+            <div class="row m-0 p-0 pb-5">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                        <!-- Add other indicators here -->
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <img class="d-block" src="./Assets/Images/affiche1.png" alt="First slide">
+                        </div>
+                        <!-- Add other carousel items here -->
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" ariahidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             </div>
-        </c:if>
-<%--<jsp:include page="event.jsp"/>--%>
-        <%--event--%>
-        <div class="row m-0 p-5">
-            <c:forEach var="event" items="${events}" varStatus="status">
-                <div class="col-md-6 col-xl-3">
-                    <div class="card">
-                        <img class="card-img-top img-fluid" src="Assets/Images/affiche${(status.index)+1}.png" alt="Card image cap">
-                        <div class="card-body">
-                            <div class="mb-3 d-block">
-                                <div class="badge badge-card rounded me-2">${event.category.name}</div>
-                                <div class="mt-2 badge badge-card rounded bg-light fw-bold">Created By ${event.user.username}</div>
-                            </div>
-                            <h4 class="card-title fs-4 fw-bold">${event.name}</h4>
-                            <div class="mb-1">
-                                        <span class="text-muted localisation">
-                                            <i class=" fas fa-map-marker-alt align-middle font-size-14 text-warning me-2"></i>${event.lieu}
-                                        </span>
-                            </div>
-                            <div class="mb-4">
-                                        <span class="text-dark countdown" id="countdown">
-                                            <i class="ri-time-line align-middle font-size-16 text-warning me-1"></i>
-                                            <div class="time">
-                                                <span id="days" class="fs-5 fw-bold">00</span>
-                                                <span class="text-muted me-2">j</span>
-                                            </div>
-                                            <div class="time">
-                                                <span id="hours" class="fs-5 fw-bold">00</span>
-                                                <span class="text-muted me-2">h</span>
-                                            </div>
-                                            <div class="time">
-                                                <span id="minutes" class="fs-5 fw-bold">00</span>
-                                                <span class="text-muted me-2">m</span>
-                                            </div>
-                                            <div class="time">
-                                                <span id="seconds" class="fs-5 fw-bold">00</span>
-                                                <span class="text-muted">s</span>
-                                            </div>
-                                        </span>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="">
-                                    <span class="text-muted">A partir de :</span>
-                                    <div class="d-flex">
-                                        <h1 class="fw-bold text-warning m-0">${event.billets[0].prix}</h1>
-                                        <span class="fw-bold text-warning">MAD</span>
-                                    </div>
+
+            <c:if test="${not empty sessionScope.message}">
+                <c:set var="code" value="${sessionScope.code}" />
+                <c:set var="isCode200" value="${code == 200}" />
+                <div class="<c:choose><c:when test='${isCode200}'>alert_success</c:when><c:otherwise>alert_danger</c:otherwise></c:choose>">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        ${sessionScope.message}
+                </div>
+            </c:if>
+
+            <div class="row m-0 p-5">
+                <c:forEach items="${events}" var="event"  varStatus="status">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="Assets/Images/affiche${(status.index)+1}.png" alt="Card image cap">
+                            <div class="card-body">
+                                <div class="mb-3 d-block">
+                                    <div class="badge badge-card rounded me-2">${event.category.name}</div>
+                                    <div class="mt-2 badge badge-card rounded bg-light fw-bold">Created By ${event.user.username}</div>
                                 </div>
-                                <div class="">
-                                    <a href="#" class="btn btn-warning text-white fw-bold waves-effect waves-light">J'achéte</a>
+                                <h4 class="card-title fs-4 fw-bold">${event.name}</h4>
+                                <div class="mb-1">
+                                    <span class="text-muted localisation">
+                                        <i class="fas fa-map-marker-alt align-middle font-size-14 text-warning me-2"></i>${event.lieu}
+                                    </span>
+                                </div>
+                                <div class="mb-4">
+                                    <span class="text-dark countdown" id="countdown">
+                                        <i class="ri-time-line align-middle font-size-16 text-warning me-1"></i>
+                                        <div class="time">
+                                            <span id="days" class="fs-5 fw-bold">00</span>
+                                            <span class="text-muted me-2">j</span>
+                                        </div>
+                                        <!-- Add more time elements here -->
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="">
+                                        <span class="text-muted">A partir de :</span>
+                                        <div class="d-flex">
+                                            <h1 class="fw-bold text-warning m-0">${event.billets[0].prix}</h1>
+                                            <span class="fw-bold text-warning">MAD</span>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <a href="${pageContext.request.contextPath}/Display?${event.id}" class="btn btn-warning text-white fw-bold waves-effect waves-light">J'achéte</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </c:forEach>
+                </c:forEach>
+            </div>
         </div>
     </div>
-</div>
-<%--<jsp:include page="footer.jsp"/>--%>
-<%--footer--%>
 
 <!-- JAVASCRIPT -->
 <script src="Assets/libs/jquery/jquery.min.js"></script>
