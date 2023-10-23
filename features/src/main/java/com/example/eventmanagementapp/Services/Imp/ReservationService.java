@@ -69,7 +69,11 @@ public class ReservationService {
         return reservationRepositoryI.getAllReservations();
     }
 
-    public List<Reservation> findAllByUser(Long id) throws SQLException {
-        return reservationRepositoryI.findByUser(id);
+    public List<Reservation> findAllByUser(String email) throws SQLException {
+        Optional<UserE> user=userRepositoryI.findByEmail(email);
+        if(user.isPresent()) {
+            return reservationRepositoryI.findByUser(user.get().getId());
+        }
+        return null;
     }
 }

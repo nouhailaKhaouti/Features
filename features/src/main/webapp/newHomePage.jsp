@@ -152,7 +152,9 @@
                     <%
                     } else {
                     %>
+                    <a href="${pageContext.request.contextPath}/Profile?email=<%=session.getAttribute("email")%>" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">
                     Welcome Nouhaila
+                    </a>
                     <div class="d-none d-sm-inline-block mx-3">
                         <form action="<%= request.getContextPath() %>/logOut" method="post">
                             <button type="submit" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">LogOut</button>

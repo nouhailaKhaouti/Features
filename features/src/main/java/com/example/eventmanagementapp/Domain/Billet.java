@@ -13,7 +13,7 @@ public class Billet {
     private Integer quantiteDisponible;
     private BilletType billetType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Event event;
 
 

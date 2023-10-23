@@ -567,18 +567,6 @@
                                         %>
                                     </section>
                                 </article>
-
-                                <%--<div class="card">
-                                    <div class="card-header ">
-                                        Ticket
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title"><%=billet.getBilletType()%></h5>
-                                        <p class="card-text badge badge-card "><%=billet.getPrix()%></p>
-                                        <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning mx-3" onclick="editBillet(`<%=billet.getId()%>`,`<%=billet.getPrix()%>`,`<%=billet.getQuantiteDisponible()%>`,`<%=billet.getBilletType()%>`)">Edit</button>
-                                        <a href="${pageContext.request.contextPath}/ticket?id=<%=billet.getId()%>" class="btn btn-danger">Delete</a>
-                                    </div>
-                                </div>--%>
                                 <%
                                     }
                                 %>

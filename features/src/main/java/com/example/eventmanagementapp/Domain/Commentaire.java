@@ -15,7 +15,7 @@ public class Commentaire {
     private Date dateDeCreation;
     @ManyToOne
     private UserE user;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Event event;
 
     public Date getDateDeCreation() {

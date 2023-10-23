@@ -50,7 +50,7 @@ public class CRUDEventServlet extends HttpServlet {
         event.setName(req.getParameter("name"));
         event.setDescription(req.getParameter("description"));
         UserE user=new UserE();
-        user.setEmail(req.getParameter("user"));
+        user.setEmail(req.getParameter("email"));
         event.setUser(user);
         event.setLieu(req.getParameter("lieu"));
         Category category=new Category();
@@ -81,9 +81,9 @@ public class CRUDEventServlet extends HttpServlet {
                     billetList.add(billet);
                 }
                 Event event=setParameter(req,res,response);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-                LocalTime parsedTime = LocalTime.parse(req.getParameter("hour").trim(), formatter);
-                event.setHour(Time.valueOf(parsedTime));
+                LocalTime time = LocalTime.parse(req.getParameter("hour").trim(), DateTimeFormatter.ofPattern("HH:mm"));
+                time = time.plusSeconds(15);
+                event.setHour(Time.valueOf(time));
                 try {
                     response= eventService.save(event,billetList);
                 } catch (SQLException e) {

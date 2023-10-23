@@ -12,5 +12,6 @@ public interface EventRepositoryI {
     public boolean update(Event event)throws SQLException;
     public Event findById(Long id)throws SQLException;
     public List<Event> getAllEvents()throws SQLException;
+    public List<Event> findByUser(Long id)throws SQLException;
     public Integer CalculateTicket(Long id)throws SQLException;
     }

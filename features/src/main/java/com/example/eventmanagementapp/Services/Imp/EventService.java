@@ -58,8 +58,10 @@ public class EventService {
     }
     public ResponseEntity update(Event event) throws SQLException {
         if(event!=null){
-            if(eventRepositoryI.findById(event.getId())!=null) {
+            Event eventNew=eventRepositoryI.findById(event.getId());
+            if(eventNew!=null) {
                 if (event.getDate().compareTo(new Date()) > 0) {
+                    event.setUser(eventNew.getUser());
                     if (eventRepositoryI.update(event)) {
                             return new ResponseEntity("your event has been successfully updated", 200);
                     }
@@ -80,10 +82,11 @@ public class EventService {
                 if (eventRepositoryI.delete(event)) {
                     return new ResponseEntity("this event has been successfully deleted", 200);
                 }
-            }
                 return new ResponseEntity("an error has occurred while deleting this event please try again later ", 404);
+            }
+            return new ResponseEntity("this event doesn't exist ", 404);
         }
-            return new ResponseEntity("you cant delete this event , as the ticket already been sold",404);
+        return new ResponseEntity("you cant delete this event , as the ticket already been sold",404);
     }
 
    public List<Event> findAll()throws SQLException{
@@ -93,6 +96,14 @@ public class EventService {
    public Event findById(Long id)throws SQLException{
         return eventRepositoryI.findById(id);
    }
+
+    public List<Event> findByUser(String email)throws SQLException{
+        Optional<UserE> user=userRepositoryI.findByEmail(email);
+        if(user.isPresent()) {
+            return eventRepositoryI.findByUser(user.get().getId());
+        }
+        return null;
+    }
    public List<Event> findByName(String name)throws SQLException{
         //TODO : VALIDATION
        return eventRepositoryI.getAllEvents();

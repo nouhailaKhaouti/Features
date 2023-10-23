@@ -2,6 +2,7 @@ package com.example.eventmanagementapp.Repositories.Imp;
 
 import com.example.eventmanagementapp.Config.EntityManagerConfig;
 import com.example.eventmanagementapp.Domain.Event;
+import com.example.eventmanagementapp.Domain.Reservation;
 import com.example.eventmanagementapp.Repositories.facad.EventRepositoryI;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -39,6 +40,13 @@ public class EventRepository implements EventRepositoryI {
         return entityManager.createQuery("SELECT u FROM Event u", Event.class).getResultList();
     }
 
+    @Override
+    public List<Event> findByUser(Long id) {
+        String sql = "SELECT u FROM Event u WHERE u.user.id = :id";
+        TypedQuery<Event> query = entityManager.createQuery(sql, Event.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
     @Override
     public boolean update(Event event) {
         try {
