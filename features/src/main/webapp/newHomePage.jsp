@@ -187,7 +187,7 @@
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
-                            <img class="d-block" src="./Assets/Images/affiche1.png" alt="First slide">
+                            <img class="d-block" src="Assets/Images/affiche1.png" alt="First slide">
                         </div>
                         <!-- Add other carousel items here -->
                     </div>
