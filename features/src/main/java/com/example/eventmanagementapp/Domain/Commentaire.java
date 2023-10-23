@@ -2,6 +2,8 @@ package com.example.eventmanagementapp.Domain;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 public class Commentaire {
     @Id
@@ -10,10 +12,20 @@ public class Commentaire {
 
     private String text;
     private Integer evaluation;
+    private Date dateDeCreation;
     @ManyToOne
     private UserE user;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Event event;
+
+    public Date getDateDeCreation() {
+        return dateDeCreation;
+    }
+
+    public void setDateDeCreation(Date dateDeCreation) {
+        this.dateDeCreation = dateDeCreation;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -54,11 +66,10 @@ public class Commentaire {
         this.event = event;
     }
 
-    public Commentaire(String text, Integer evaluation, UserE user, Event event) {
+    public Commentaire(String text, Integer evaluation, UserE user) {
         this.text = text;
         this.evaluation = evaluation;
         this.user = user;
-        this.event = event;
     }
 
     public Commentaire() {
@@ -70,7 +81,6 @@ public class Commentaire {
                 "text='" + text + '\'' +
                 ", evaluation=" + evaluation +
                 ", user=" + user +
-                ", event=" + event +
                 '}';
     }
 

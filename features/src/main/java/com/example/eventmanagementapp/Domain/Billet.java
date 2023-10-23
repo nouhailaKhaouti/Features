@@ -1,10 +1,7 @@
 package com.example.eventmanagementapp.Domain;
 
 import com.example.eventmanagementapp.Domain.Enums.BilletType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Billet {
@@ -12,10 +9,21 @@ public class Billet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double prix;
-    private int quantiteDisponible;
+    private Double prix;
+    private Integer quantiteDisponible;
     private BilletType billetType;
 
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private Event event;
+
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -25,7 +33,7 @@ public class Billet {
         return id;
     }
 
-    public Billet(double prix, int quantiteDisponible, BilletType billetType) {
+    public Billet(Double prix, Integer quantiteDisponible, BilletType billetType) {
         this.prix = prix;
         this.quantiteDisponible = quantiteDisponible;
         this.billetType = billetType;
@@ -34,7 +42,7 @@ public class Billet {
     public Billet() {
     }
 
-    public double getPrix() {
+    public Double getPrix() {
         return prix;
     }
 
@@ -42,7 +50,7 @@ public class Billet {
         this.prix = prix;
     }
 
-    public int getQuantiteDisponible() {
+    public Integer getQuantiteDisponible() {
         return quantiteDisponible;
     }
 

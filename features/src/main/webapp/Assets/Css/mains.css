@@ -1,0 +1,393 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  user-select: none;
+}
+
+.login {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  transition: opacity 0.02s 0.4s;
+}
+.login .logo {
+  display: flex;
+  align-items: center;
+}
+.login .logo img {
+  width: 35px;
+  margin-right: 0.3rem;
+}
+.login .logo h3 {
+  font-size: 2rem;
+  color: #A038D6;
+  letter-spacing: -0.5px;
+}
+.login .logo h3 span {
+  color: #E38D25;
+}
+.login .head h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #212121;
+  margin-bottom: 0.5rem;
+}
+.login .head h6 {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: #bbb;
+  display: inline;
+}
+.login .head .toggle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #212121;
+  text-decoration: none;
+  transition: 0.4s;
+}
+.login .head .toggle:hover {
+  color: #149BB4;
+}
+.login .form-content .inputs {
+  position: relative;
+  height: 37px;
+  margin-bottom: 2rem;
+}
+.login .form-content .inputs .input-field {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 1px solid #bbb;
+  font-size: 0.9rem;
+  color: #212121;
+  transition: 0.4s;
+}
+.login .form-content .inputs .input-field.active-input {
+  border-bottom: 1px solid #149BB4;
+}
+.login .form-content .inputs .input-field.active-input + label {
+  font-size: 0.65rem;
+  top: -2.5px;
+  color: #149BB4;
+}
+.login .form-content .inputs label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: #bbb;
+  pointer-events: none;
+  transition: 0.4s;
+}
+.login .form-content .text {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: #bbb;
+}
+.login .form-content .text a {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #212121;
+  text-decoration: none;
+  transition: 0.4s;
+}
+.login .form-content .text a:hover {
+  color: #149BB4;
+}
+
+.signup {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.02s 0.4s;
+}
+.signup .logo {
+  display: flex;
+  align-items: center;
+}
+.signup .logo img {
+  width: 35px;
+  margin-right: 0.3rem;
+}
+.signup .logo h3 {
+  font-size: 2rem;
+  color: #A038D6;
+  letter-spacing: -0.5px;
+}
+.signup .logo h3 span {
+  color: #E38D25;
+}
+.signup .head h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #212121;
+  margin-bottom: 0.5rem;
+}
+.signup .head h6 {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: #bbb;
+  display: inline;
+}
+.signup .head .toggle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #212121;
+  text-decoration: none;
+  transition: 0.4s;
+}
+.signup .head .toggle:hover {
+  color: #149BB4;
+}
+.signup .form-content .inputs {
+  position: relative;
+  height: 37px;
+  margin-bottom: 2rem;
+}
+.signup .form-content .inputs .input-field {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 1px solid #bbb;
+  font-size: 0.9rem;
+  color: #212121;
+  transition: 0.4s;
+}
+.signup .form-content .inputs .input-field.active-input {
+  border-bottom: 1px solid #149BB4;
+}
+.signup .form-content .inputs .input-field.active-input + label {
+  font-size: 0.65rem;
+  top: -2.5px;
+  color: #149BB4;
+}
+.signup .form-content .inputs label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: #bbb;
+  pointer-events: none;
+  transition: 0.4s;
+}
+.signup .form-content .text {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: #bbb;
+}
+.signup .form-content .text a {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #212121;
+  text-decoration: none;
+  transition: 0.4s;
+}
+.signup .form-content .text a:hover {
+  color: #149BB4;
+}
+
+.images {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+.images .imageC {
+  width: 100%;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.5s;
+}
+.images .imageC.show {
+  opacity: 1;
+  transform: none;
+}
+.images .img-1 {
+  transform: translate(0, -50px);
+}
+.images .img-2 {
+  transform: scale(0.4, 0.5);
+}
+.images .img-3 {
+  transform: scale(0.3) rotate(-30deg);
+}
+
+.text-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.text-slider .textSl {
+  max-height: 2.2rem;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+.text-slider .textSl .text-group {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transform: translateY(0);
+  transition: 0.5s;
+}
+.text-slider .textSl .text-group h2 {
+  line-height: 2.2rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #A038D6;
+}
+.text-slider .bullets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.text-slider .bullets span {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #149BB4;
+  margin: 0 0.25rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.text-slider .bullets span.active {
+  width: 1.1rem;
+  background-color: #A038D6;
+  border-radius: 1rem;
+}
+
+.login-btn {
+  width: 100%;
+  height: 45px;
+  border: none;
+  outline: none;
+  font-size: 0.8rem;
+  color: white;
+  background-color: #A038D6;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: 0.4s;
+  border-radius: 0.4rem;
+}
+.login-btn:hover {
+  background-color: #E38D25;
+}
+
+main {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #149BB4;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .box {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  max-width: 1020px;
+  background-color: white;
+  border-radius: 3rem;
+}
+main .box .interior-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 3rem);
+  height: calc(100% - 3rem);
+}
+main .box .interior-box.login-mode .forms {
+  left: 55%;
+}
+main .box .interior-box.login-mode .carousel {
+  left: 0%;
+}
+main .box .interior-box.login-mode form.login {
+  opacity: 0;
+  pointer-events: none;
+}
+main .box .interior-box.login-mode form.signup {
+  opacity: 1;
+  pointer-events: all;
+}
+main .box .interior-box .forms {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  transition: 0.8s ease-in-out;
+}
+main .box .interior-box .carousel {
+  position: absolute;
+  top: 0;
+  left: 45%;
+  width: 55%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding-bottom: 2rem;
+  background-color: #B3E0E1;
+  border-radius: 2rem;
+  transition: 0.8s ease-in-out;
+  overflow: hidden;
+}
+
+.alert_danger {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.alert_success {
+  padding: 20px;
+  background-color: #8ac76a;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

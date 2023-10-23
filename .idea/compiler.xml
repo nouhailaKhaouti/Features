@@ -9,5 +9,8 @@
         <module name="EventManagementApp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="features" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
