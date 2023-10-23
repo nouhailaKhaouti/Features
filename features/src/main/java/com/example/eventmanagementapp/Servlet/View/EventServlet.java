@@ -32,7 +32,8 @@ public class EventServlet extends HttpServlet {
             Long eventId = Long.valueOf(req.getParameter("id"));
             req.setAttribute("event", eventService.findById(eventId));
             req.setAttribute("billets", billetService.findByEvent(eventId));
-            req.setAttribute("comments", commentService.findAll(eventId));
+            req.setAttribute("comments", commentService.findAllByEvent(eventId));
+            System.out.println("comment section:"+commentService.findAllByEvent(eventId));
             req.setAttribute("categories", categoryService.findAll());
         } catch (SQLException e) {
             throw new RuntimeException(e);

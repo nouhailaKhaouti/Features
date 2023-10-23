@@ -2,7 +2,10 @@ package com.example.eventmanagementapp.Services.Imp;
 
 import com.example.eventmanagementapp.Domain.Commentaire;
 import com.example.eventmanagementapp.Domain.ResponseEntity;
+import com.example.eventmanagementapp.Domain.UserE;
+import com.example.eventmanagementapp.Repositories.Imp.UserRepository;
 import com.example.eventmanagementapp.Repositories.facad.CommentaireRepositoryI;
+import com.example.eventmanagementapp.Repositories.facad.UserRepositoryI;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,20 +19,27 @@ public class CommentaireService {
         this.commentaireRepositoryI=commentaireRepositoryI;
     }
 
+    UserRepositoryI userRepository=new UserRepository();
     public ResponseEntity create(Commentaire commentaire) throws SQLException {
         if(commentaire!=null){
-                if(commentaireRepositoryI.save(commentaire)){
-                    return new ResponseEntity("the commentaire has been added successfully ",200);
+            Optional<UserE> user=userRepository.findByEmail(commentaire.getUser().getEmail());
+            if(user.isPresent()) {
+                commentaire.setUser(user.get());
+                if (commentaireRepositoryI.save(commentaire)) {
+                    return new ResponseEntity("the comment has been added successfully ", 200);
                 }
-                return new ResponseEntity("an error has occurred while creating this commentaire please be patient until we fix the problem ",404);
+                return new ResponseEntity("an error has occurred while creating this comment please be patient until we fix the problem ", 404);
+            }
+            return new ResponseEntity("Can't find user With the email you provided ", 404);
         }
-        return new ResponseEntity("the commentaire your trying to insert is null please try again",404);
+        return new ResponseEntity("the comment your trying to insert is null please try again",404);
     }
 
     public ResponseEntity update(Commentaire commentaire)throws SQLException{
         if(commentaire!=null){
             Optional<Commentaire> commentaireOptional=commentaireRepositoryI.findById(commentaire.getId());
             if(commentaireOptional.isPresent()){
+                commentaireOptional.get().setText(commentaire.getText());
                 if(commentaireRepositoryI.update(commentaireOptional.get())){
                     return new ResponseEntity("the commentaire has been updated successfully ",200);
                 }
@@ -40,7 +50,7 @@ public class CommentaireService {
         return new ResponseEntity("the commentaire your trying to update is null please try again",404);
     }
 
-    public List<Commentaire> findAll(Long id) throws SQLException {
+    public List<Commentaire> findAllByEvent(Long id) throws SQLException {
         return commentaireRepositoryI.getAllCommentaire(id);
     }
 

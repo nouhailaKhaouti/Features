@@ -1,6 +1,7 @@
 package com.example.eventmanagementapp.Repositories.Imp;
 
 import com.example.eventmanagementapp.Config.EntityManagerConfig;
+import com.example.eventmanagementapp.Domain.Billet;
 import com.example.eventmanagementapp.Domain.Commentaire;
 import com.example.eventmanagementapp.Repositories.facad.CommentaireRepositoryI;
 import jakarta.persistence.EntityManager;
@@ -37,7 +38,10 @@ public class CommentaireRepository implements CommentaireRepositoryI {
     }
     @Override
     public List<Commentaire> getAllCommentaire(Long id) {
-        return entityManager.createQuery("SELECT u FROM Commentaire u where u.event.id=id", Commentaire.class).getResultList();
+        String sql = "SELECT u FROM Commentaire u WHERE u.event.id = :id";
+        TypedQuery<Commentaire> query = entityManager.createQuery(sql, Commentaire.class);
+        query.setParameter("id", id);
+        return query.getResultList();
     }
 
     @Override

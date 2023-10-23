@@ -23,7 +23,6 @@ function editBillet(id, price,quantity,type) {
     document.getElementById(
         "hidden"
     ).innerHTML = `<input type="hidden" name="id" value="${id}">`;
-    mini.classList.add("hidden");
     document.getElementById("action").value="update";
     btn2.innerHTML = `
      <button type="submit" id="billet-crud" class="btn btn-warning " >Update</button>`;
