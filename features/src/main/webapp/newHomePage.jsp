@@ -1,3 +1,6 @@
+<%@ page import="com.example.eventmanagementapp.Domain.Category" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.eventmanagementapp.Domain.Event" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<jsp:useBean id="categories" scope="request" type="java.util.List"/>
 <jsp:useBean id="events" scope="request" type="java.util.List"/>--%>
@@ -60,18 +63,22 @@
     <div id="layout-wrapper">
         <header id="page-topbar">
             <div class="navbar-header">
+
                 <div class="d-flex">
+                    <!-- LOGO -->
                     <div class="navbar-brand-box">
-                        <a href="newHomePage.jsp" class="logo logo-dark">
-                            <span class="logo-sm">
-                                <img src="./Assets/Images/logo-f.png" alt="logo-sm" height="35">
-                            </span>
+
+                        <a href="${pageContext.request.contextPath}/home" class="logo logo-dark">
+                                <span class="logo-sm">
+                                    <img src="Assets/Images/logo-f.png" alt="logo-sm" height="35">
+                                </span>
                             <span class="logo-lg">
-                                <img src="./Assets/Images/logo2-f.png" alt="logo-dark" height="40">
-                            </span>
+                                    <img src="Assets/Images/logo2-f.png" alt="logo-dark" height="40">
+                                </span>
                         </a>
                     </div>
 
+                    <!-- App Search-->
                     <form class="app-search d-none d-md-block">
                         <div class="position-relative">
                             <input type="text" class="form-control" placeholder="Search...">
@@ -85,22 +92,29 @@
                             <i class="mdi mdi-chevron-down"></i>
                         </button>
                         <div class="dropdown-menu dropdown-megamenu bg-light">
+
                             <div class="row">
                                 <div class="col-sm">
+
                                     <div class="row">
-                                        <c:forEach items="${categories}" var="category">
-                                            <div class="col-md-2 d-flex justify-content-center">
-                                                <a class="fw-bold text-reset" href="#">${category.name}</a>
-                                            </div>
-                                        </c:forEach>
+
+                                        <% List<Category> categories=(List<Category>) request.getAttribute("categories");
+                                            for (Category category : categories) { %>
+                                        <div class="col-md-2 d-flex justify-content-center">
+                                            <a class="fw-bold text-reset" href="#"><%= category.getName() %></a>
+                                        </div>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+
                 </div>
 
                 <div class="d-flex align-items-center">
+
                     <div class="dropdown d-inline-block d-md-none ms-2 me-2">
                         <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,6 +122,7 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                              aria-labelledby="page-header-search-dropdown">
+
                             <form class="p-3">
                                 <div class="mb-3 m-0">
                                     <div class="input-group">
@@ -120,33 +135,39 @@
                             </form>
                         </div>
                     </div>
+
                     <div class="d-none d-sm-inline-block me-5">
                         <a class="fw-bold text-reset" href="#">Create Events</a>
                     </div>
-                    <c:choose>
-                        <c:when test="${empty sessionScope.email}">
-                            <div class="d-none d-sm-inline-block me-4">
-                                <a class="fw-bold text-reset" href="${pageContext.request.contextPath}/Auth">Login</a>
-                            </div>
-                            <div class="d-none d-sm-inline-block me-5">
-                                <a href="${pageContext.request.contextPath}/Auth" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">Signup</a>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            Welcome Nouhaila
-                            <div class="d-none d-sm-inline-block mx-3">
-                                <form action="${pageContext.request.contextPath}/logOut" method="post">
-                                    <button type="submit" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">LogOut</button>
-                                </form>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
+
+                    <%
+                        if (session.getAttribute("email") == null) {
+                    %>
+                    <div class="d-none d-sm-inline-block me-4">
+                        <a class="fw-bold text-reset" href="<%= request.getContextPath() %>/Auth">Login</a>
+                    </div>
+                    <div class="d-none d-sm-inline-block me-5">
+                        <a href="<%= request.getContextPath() %>/Auth" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">Signup</a>
+                    </div>
+                    <%
+                    } else {
+                    %>
+                    Welcome Nouhaila
+                    <div class="d-none d-sm-inline-block mx-3">
+                        <form action="<%= request.getContextPath() %>/logOut" method="post">
+                            <button type="submit" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">LogOut</button>
+                        </form>
+                    </div>
+                    <%
+                        }
+                    %>
                     <div class="dropdown dropdown d-inline-block d-sm-none">
                         <button type="button" class="btn header-item noti-icon waves-effect"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class=" ri-settings-4-fill"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
                             <a class="dropdown-item fs-5 text-secondary" href="#"><i class="ri-map-pin-user-fill align-middle me-1 fs-2 text-secondary"></i> Login</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item fs-5 text-secondary" href="#"><i class="ri-account-pin-box-line align-middle me-1 fs-2 text-secondary"></i> Signup</a>
@@ -155,7 +176,6 @@
                 </div>
             </div>
         </header>
-
         <div class="main">
             <div class="row m-0 p-0 pb-5">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -180,57 +200,70 @@
                 </div>
             </div>
 
-            <c:if test="${not empty sessionScope.message}">
-                <c:set var="code" value="${sessionScope.code}" />
-                <c:set var="isCode200" value="${code == 200}" />
-                <div class="<c:choose><c:when test='${isCode200}'>alert_success</c:when><c:otherwise>alert_danger</c:otherwise></c:choose>">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                        ${sessionScope.message}
-                </div>
-            </c:if>
+            <%
+                if (session.getAttribute("message") != null) {
+                    Object codeAttribute = session.getAttribute("code");
+                    boolean isCode200 = codeAttribute != null && codeAttribute.toString().equals("200");
+            %>
+            <div class="<%= isCode200 ? "alert_success" : "alert_danger" %>">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <%= session.getAttribute("message") %>
+            </div>
+            <%
+                }
+            %>
 
             <div class="row m-0 p-5">
-                <c:forEach items="${events}" var="event"  varStatus="status">
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card">
-                            <img class="card-img-top img-fluid" src="Assets/Images/affiche${(status.index)+1}.png" alt="Card image cap">
-                            <div class="card-body">
-                                <div class="mb-3 d-block">
-                                    <div class="badge badge-card rounded me-2">${event.category.name}</div>
-                                    <div class="mt-2 badge badge-card rounded bg-light fw-bold">Created By ${event.user.username}</div>
+                <%
+                    List<Event> events = (List<Event>) request.getAttribute("events");
+                    if (events != null && !events.isEmpty()) {
+                        int index = 1;
+                        for (Event event : events) {
+                %>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="Assets/Images/affiche<%= index %>.png" alt="Card image cap">
+                        <div class="card-body">
+                            <div class="mb-3 d-block">
+                                <div class="badge badge-card rounded me-2"><%= event.getCategory().getName() %></div>
+                                <div class="mt-2 badge badge-card rounded bg-light fw-bold">Created By <%= event.getUser().getUsername() %></div>
+                            </div>
+                            <h4 class="card-title fs-4 fw-bold"><%= event.getName() %></h4>
+                            <div class="mb-1">
+                            <span class="text-muted localisation">
+                                <i class="fas fa-map-marker-alt align-middle font-size-14 text-warning me-2"></i><%= event.getLieu() %>
+                            </span>
+                            </div>
+                            <div class="mb-4">
+                            <span class="text-dark countdown" id="countdown">
+                                <i class="ri-time-line align-middle font-size-16 text-warning me-1"></i>
+                                <div class="time">
+                                    <span id="days" class="fs-5 fw-bold">00</span>
+                                    <span class="text-muted me-2">j</span>
                                 </div>
-                                <h4 class="card-title fs-4 fw-bold">${event.name}</h4>
-                                <div class="mb-1">
-                                    <span class="text-muted localisation">
-                                        <i class="fas fa-map-marker-alt align-middle font-size-14 text-warning me-2"></i>${event.lieu}
-                                    </span>
-                                </div>
-                                <div class="mb-4">
-                                    <span class="text-dark countdown" id="countdown">
-                                        <i class="ri-time-line align-middle font-size-16 text-warning me-1"></i>
-                                        <div class="time">
-                                            <span id="days" class="fs-5 fw-bold">00</span>
-                                            <span class="text-muted me-2">j</span>
-                                        </div>
-                                        <!-- Add more time elements here -->
-                                    </span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="">
-                                        <span class="text-muted">A partir de :</span>
-                                        <div class="d-flex">
-                                            <h1 class="fw-bold text-warning m-0">${event.billets[0].prix}</h1>
-                                            <span class="fw-bold text-warning">MAD</span>
-                                        </div>
+                                <!-- Add more time elements here -->
+                            </span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="">
+                                    <span class="text-muted">A partir de :</span>
+                                    <div class="d-flex">
+                                        <h1 class="fw-bold text-warning m-0"><%= 100 %></h1>
+                                        <span class="fw-bold text-warning">MAD</span>
                                     </div>
-                                    <div class="">
-                                        <a href="${pageContext.request.contextPath}/Display?${event.id}" class="btn btn-warning text-white fw-bold waves-effect waves-light">J'achéte</a>
-                                    </div>
+                                </div>
+                                <div class="">
+                                    <a href="<%= request.getContextPath() %>/Display?id=<%=event.getId()%>" class="btn btn-warning text-white fw-bold waves-effect waves-light">J'achéte</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </c:forEach>
+                </div>
+                <%
+                            index++;
+                        }
+                    }
+                %>
             </div>
         </div>
     </div>

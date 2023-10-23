@@ -25,7 +25,10 @@ public class BilletService {
 
     public ResponseEntity update(Billet billet) throws SQLException{
         if(billet!=null){
-            if(billetRepositoryI.findById(billet.getId()).isPresent()){
+            Optional<Billet> billetOptional=billetRepositoryI.findById(billet.getId());
+
+            if(billetOptional.isPresent()){
+                billet.setEvent(billetOptional.get().getEvent());
                 if(billetRepositoryI.update(billet)){
                     return new ResponseEntity("the ticket has been updated successfully ",200);
                 }
