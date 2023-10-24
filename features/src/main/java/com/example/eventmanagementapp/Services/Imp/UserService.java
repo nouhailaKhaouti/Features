@@ -55,11 +55,11 @@ public class UserService  {
         }
     }
 
-    public ResponseEntity UpdatePassword(UserE user) throws SQLException{
+    public ResponseEntity UpdatePassword(UserE user,String newPassword) throws SQLException{
         Optional<UserE> newUser=userRepositoryI.findByEmail(user.getEmail());
         if(newUser.isPresent()){
             if(BCrypt.checkpw(user.getPassword(), newUser.get().getPassword())){
-               newUser.get().setPassword(BCrypt.hashpw(user.getPassword(),BCrypt.gensalt()));
+               newUser.get().setPassword(BCrypt.hashpw(newPassword,BCrypt.gensalt()));
                if(userRepositoryI.update(newUser.get())){
                    return new ResponseEntity("Your password has been ",200);
                }
@@ -74,12 +74,20 @@ public class UserService  {
     public ResponseEntity Update(UserE user) throws SQLException{
         Optional<UserE> newUser=userRepositoryI.findByEmail(user.getEmail());
         if(newUser.isPresent()){
+                user.setId(newUser.get().getId());
+                user.setPassword(newUser.get().getPassword());
                 if(userRepositoryI.update(newUser.get())){
                     return new ResponseEntity("Your password has been ",200);
                 }
                 return new ResponseEntity("An error occurred while updating your profile ",404);
         }
         return new ResponseEntity("Can't find a user with the email provided",404);
+    }
+
+    public ResponseEntity findByEmail(String email)throws SQLException{
+        Optional<UserE> user=userRepositoryI.findByEmail(email);
+        return user.map(userE -> new ResponseEntity("successfully retrieved the user  ", 200, userE)).orElseGet(() -> new ResponseEntity("this user doesn't exist ", 404));
+
     }
 
 }

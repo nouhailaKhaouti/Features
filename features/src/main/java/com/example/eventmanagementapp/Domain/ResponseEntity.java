@@ -4,6 +4,22 @@ public class ResponseEntity {
     private String message;
     private Integer code;
 
+    private Object obj;
+
+    public Object getObj() {
+        return obj;
+    }
+
+    public void setObj(Object obj) {
+        this.obj = obj;
+    }
+
+    public ResponseEntity(String message, Integer code, Object obj) {
+        this.message = message;
+        this.code = code;
+        this.obj = obj;
+    }
+
     public ResponseEntity() {
     }
 
