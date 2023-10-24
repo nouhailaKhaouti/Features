@@ -79,9 +79,9 @@
                     </div>
 
                     <!-- App Search-->
-                    <form class="app-search d-none d-md-block">
+                    <form class="app-search d-none d-md-block" action="${pageContext.request.contextPath}/search" method="post">
                         <div class="position-relative">
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" name="search" class="form-control" placeholder="Search...">
                             <span class="ri-search-line"></span>
                         </div>
                     </form>
@@ -101,7 +101,7 @@
                                         <% List<Category> categories=(List<Category>) request.getAttribute("categories");
                                             for (Category category : categories) { %>
                                         <div class="col-md-2 d-flex justify-content-center">
-                                            <a class="fw-bold text-reset" href="#"><%= category.getName() %></a>
+                                            <a class="fw-bold text-reset" href="${pageContext.request.contextPath}/category?id=<%=category.getId()%>"><%= category.getName() %></a>
                                         </div>
                                         <% } %>
                                     </div>
@@ -123,10 +123,10 @@
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                              aria-labelledby="page-header-search-dropdown">
 
-                            <form class="p-3">
+                            <form class="p-3" action="${pageContext.request.contextPath}/search" method="post">
                                 <div class="mb-3 m-0">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search ...">
+                                        <input type="text" name="search" class="form-control" placeholder="Search ...">
                                         <div class="input-group-append">
                                             <button class="btn btn-warning text-white" type="submit"><i class="ri-search-line"></i></button>
                                         </div>
@@ -183,20 +183,47 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-                        <!-- Add other indicators here -->
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></li>
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></li>
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"></li>
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"></li>
+                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="_"></li>
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
-                            <img class="d-block" src="Assets/Images/affiche1.png" alt="First slide">
+                            <img class="d-block" src="assets/images/affiche1.png" alt="First slide">
                         </div>
-                        <!-- Add other carousel items here -->
+                        <div class="carousel-item">
+                            <img class="d-block" src="assets/images/affiche2.jpg" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block" src="assets/images/affiche3.jpg" alt="Third slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block" src="assets/images/affiche4.png" alt="Fourth slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block" src="assets/images/affiche5.jpg" alt="Fifth slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block" src="assets/images/affiche6.png" alt="Sixth slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block" src="assets/images/affiche7.png" alt="seventh slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block" src="assets/images/affiche8.jpg" alt="Eighth slide">
+                        </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
                     <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" ariahidden="true"></span>
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
                 </div>

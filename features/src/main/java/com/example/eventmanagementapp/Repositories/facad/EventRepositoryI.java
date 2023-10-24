@@ -13,5 +13,8 @@ public interface EventRepositoryI {
     public Event findById(Long id)throws SQLException;
     public List<Event> getAllEvents()throws SQLException;
     public List<Event> findByUser(Long id)throws SQLException;
+    public List<Event> findByCategory(Long id)throws SQLException;
+    public List<Event> getEventsByName(String name) throws SQLException;
     public Integer CalculateTicket(Long id)throws SQLException;
-    }
+
+}

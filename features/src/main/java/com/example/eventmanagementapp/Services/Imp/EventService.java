@@ -104,9 +104,17 @@ public class EventService {
         }
         return null;
     }
+
+    public List<Event> findByCategory(Long id)throws SQLException{
+        Optional<Category> category=categoryRepositoryI.findById(id);
+        if(category.isPresent()) {
+            return eventRepositoryI.findByCategory(id);
+        }
+        return null;
+    }
    public List<Event> findByName(String name)throws SQLException{
         //TODO : VALIDATION
-       return eventRepositoryI.getAllEvents();
+       return eventRepositoryI.getEventsByName(name);
    }
 
 }

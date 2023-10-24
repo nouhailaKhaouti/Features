@@ -342,7 +342,7 @@
                                             <% List<Category> categories=(List<Category>) request.getAttribute("categories");
                                                 for (Category category : categories) { %>
                                             <div class="col-md-2 d-flex justify-content-center">
-                                                <a class="fw-bold text-reset" href="#"><%= category.getName() %></a>
+                                                <a class="fw-bold text-reset" href="${pageContext.request.contextPath}/category?id=<%=category.getId()%>"><%= category.getName() %></a>
                                             </div>
                                             <% } %>
                                         </div>
@@ -359,11 +359,11 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                                 aria-labelledby="page-header-search-dropdown">
-                    
-                                <form class="p-3">
+
+                                <form class="p-3" action="${pageContext.request.contextPath}/search" method="post">
                                     <div class="mb-3 m-0">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search ...">
+                                            <input type="text" name="search" class="form-control" placeholder="Search ...">
                                             <div class="input-group-append">
                                                 <button class="btn btn-warning text-white" type="submit"><i class="ri-search-line"></i></button>
                                             </div>

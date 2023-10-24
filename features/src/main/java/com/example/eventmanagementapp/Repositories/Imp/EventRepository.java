@@ -47,6 +47,22 @@ public class EventRepository implements EventRepositoryI {
         query.setParameter("id", id);
         return query.getResultList();
     }
+
+    @Override
+    public List<Event> getEventsByName(String name) {
+        String sql = "SELECT u FROM Event u WHERE u.name LIKE :name";
+        TypedQuery<Event> query = entityManager.createQuery(sql, Event.class);
+        query.setParameter("name", "%" + name + "%");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Event> findByCategory(Long id) {
+        String sql = "SELECT u FROM Event u WHERE u.category.id = :id";
+        TypedQuery<Event> query = entityManager.createQuery(sql, Event.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
     @Override
     public boolean update(Event event) {
         try {

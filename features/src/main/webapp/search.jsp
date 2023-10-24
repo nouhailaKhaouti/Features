@@ -1,14 +1,11 @@
-<%@ page import="com.example.eventmanagementapp.Domain.Event" %>
-<%@ page import="java.util.List" %>
 <%@ page import="com.example.eventmanagementapp.Domain.Category" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Youcode
-  Date: 22/10/2023
-  Time: 11:03
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.eventmanagementapp.Domain.Event" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<jsp:useBean id="categories" scope="request" type="java.util.List"/>
+<jsp:useBean id="events" scope="request" type="java.util.List"/>--%>
+<%--<jsp:include page="nav.jsp"/>--%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +14,7 @@
   <title>Features</title>
   <!-- App favicon -->
   <link rel="shortcut icon" href="Assets/Images/logo-f.png">
-  <!-- jquery.vectormap css -->
+  <!-- jquery.vector-map css -->
   <link href="Assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
 
   <!-- DataTables -->
@@ -33,12 +30,37 @@
   <!-- App Css-->
   <link href="Assets/Css/app.min.css" class="app-style" rel="stylesheet" type="text/css" />
   <link href="Assets/Css/custom.css" class="app-style" rel="stylesheet" type="text/css" />
+  <style>
+    .alert_danger {
+      padding: 20px;
+      background-color: #f44336;
+      color: white;
+    }
 
+    .alert_success {
+      padding: 20px;
+      background-color: #a2e374;
+      color: white;
+    }
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+  </style>
 </head>
 <body data-topbar="light">
 
 <div id="layout-wrapper">
-
   <header id="page-topbar">
     <div class="navbar-header">
 
@@ -46,11 +68,11 @@
         <!-- LOGO -->
         <div class="navbar-brand-box">
 
-          <a href="#" class="logo logo-dark">
+          <a href="${pageContext.request.contextPath}/home" class="logo logo-dark">
                                 <span class="logo-sm">
                                     <img src="Assets/Images/logo-f.png" alt="logo-sm" height="35">
                                 </span>
-                                <span class="logo-lg">
+            <span class="logo-lg">
                                     <img src="Assets/Images/logo2-f.png" alt="logo-dark" height="40">
                                 </span>
           </a>
@@ -75,19 +97,17 @@
               <div class="col-sm">
 
                 <div class="row">
-                  <%
-                    List<Category> categories = (List<Category>) request.getAttribute("categories");
-                    for (Category category : categories) {
-                  %>
+
+                  <% List<Category> categories=(List<Category>) request.getAttribute("categories");
+                    for (Category category : categories) { %>
                   <div class="col-md-2 d-flex justify-content-center">
-                    <a class="fw-bold text-reset" href="#">Concerts & Festivals</a>
+                    <a class="fw-bold text-reset" href="${pageContext.request.contextPath}/category?id=<%=category.getId()%>"><%= category.getName() %></a>
                   </div>
-                  <%
-                    }
-                  %>
+                  <% } %>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -101,10 +121,10 @@
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                aria-labelledby="page-header-search-dropdown">
 
-            <form class="p-3">
+            <form class="p-3" action="${pageContext.request.contextPath}/search" method="post">
               <div class="mb-3 m-0">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search ...">
+                  <input type="text" name="search" class="form-control" placeholder="Search ...">
                   <div class="input-group-append">
                     <button class="btn btn-warning text-white" type="submit"><i class="ri-search-line"></i></button>
                   </div>
@@ -118,14 +138,29 @@
           <a class="fw-bold text-reset" href="#">Create Events</a>
         </div>
 
+        <%
+          if (session.getAttribute("email") == null) {
+        %>
         <div class="d-none d-sm-inline-block me-4">
-          <a class="fw-bold text-reset" href="#">Login</a>
+          <a class="fw-bold text-reset" href="<%= request.getContextPath() %>/Auth">Login</a>
         </div>
-
         <div class="d-none d-sm-inline-block me-5">
-          <button type="button" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">Signup</button>
+          <a href="<%= request.getContextPath() %>/Auth" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">Signup</a>
         </div>
-
+        <%
+        } else {
+        %>
+        <a href="${pageContext.request.contextPath}/Profile?email=<%=session.getAttribute("email")%>" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">
+          Welcome Nouhaila
+        </a>
+        <div class="d-none d-sm-inline-block mx-3">
+          <form action="<%= request.getContextPath() %>/logOut" method="post">
+            <button type="submit" class="btn btn-outline-secondary px-4 py-0 waves-effect waves-light fw-bold font-size-14">LogOut</button>
+          </form>
+        </div>
+        <%
+          }
+        %>
         <div class="dropdown dropdown d-inline-block d-sm-none">
           <button type="button" class="btn header-item noti-icon waves-effect"
                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -141,120 +176,75 @@
       </div>
     </div>
   </header>
-
   <div class="main">
-    <div class="row m-0 p-0 pb-5">
-      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="_"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-          <div class="carousel-item active">
-            <img class="d-block" src="Assets/Images/affiche1.png" alt="First slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block" src="Assets/Images/affiche2.jpg" alt="Second slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block" src="Assets/Images/affiche3.jpg" alt="Third slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block" src="Assets/Images/affiche4.png" alt="Fourth slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block" src="Assets/Images/affiche5.jpg" alt="Fifth slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block" src="Assets/Images/affiche6.png" alt="Sixth slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block" src="Assets/Images/affiche7.png" alt="seventh slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block" src="Assets/Images/affiche8.jpg" alt="Eighth slide">
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
+
+    <%
+      if (session.getAttribute("message") != null) {
+        Object codeAttribute = session.getAttribute("code");
+        boolean isCode200 = codeAttribute != null && codeAttribute.toString().equals("200");
+    %>
+    <div class="<%= isCode200 ? "alert_success" : "alert_danger" %>">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      <%= session.getAttribute("message") %>
     </div>
+    <%
+      }
+    %>
 
     <div class="row m-0 p-5">
       <%
-        int i=0;
         List<Event> events = (List<Event>) request.getAttribute("events");
-        for (Event event : events) {
+        if (events != null && !events.isEmpty()) {
+          int index = 1;
+          for (Event event : events) {
       %>
       <div class="col-md-6 col-xl-3">
         <div class="card">
-          <img class="card-img-top img-fluid" src="Assets/Images/affiche<%=i%>.png" alt="Card image cap">
+          <img class="card-img-top img-fluid" src="Assets/Images/affiche<%= index %>.png" alt="Card image cap">
           <div class="card-body">
-            <div class="mb-3">
-              <span class="badge badge-card rounded me-2"><%=event.getCategory().getName()%></span>
-              <span class="rounded bg-light fw-bold">Created By <%=event.getUser().getUsername()%></span>
+            <div class="mb-3 d-block">
+              <div class="badge badge-card rounded me-2"><%= event.getCategory().getName() %></div>
+              <div class="mt-2 badge badge-card rounded bg-light fw-bold">Created By <%= event.getUser().getUsername() %></div>
             </div>
-            <h4 class="card-title fs-4 fw-bold"><%=event.getName()%></h4>
+            <h4 class="card-title fs-4 fw-bold"><%= event.getName() %></h4>
             <div class="mb-1">
-              <span class="text-muted localisation"><i class=" fas fa-map-marker-alt align-middle font-size-14 text-warning me-2"></i><%=event.getLieu()%></span>
+                            <span class="text-muted localisation">
+                                <i class="fas fa-map-marker-alt align-middle font-size-14 text-warning me-2"></i><%= event.getLieu() %>
+                            </span>
             </div>
             <div class="mb-4">
-                                    <span class="text-dark countdown" id="countdown"><i class="ri-time-line align-middle font-size-16 text-warning me-1"></i>
-                                        <div class="time">
-                                            <span id="days" class="fs-5 fw-bold">00</span>
-                                            <span class="text-muted me-2">j</span>
-                                        </div>
-                                        <div class="time">
-                                            <span id="hours" class="fs-5 fw-bold">00</span>
-                                            <span class="text-muted me-2">h</span>
-                                        </div>
-                                        <div class="time">
-                                            <span id="minutes" class="fs-5 fw-bold">00</span>
-                                            <span class="text-muted me-2">m</span>
-                                        </div>
-                                        <div class="time">
-                                            <span id="seconds" class="fs-5 fw-bold">00</span>
-                                            <span class="text-muted">s</span>
-                                        </div>
-                                    </span>
+                            <span class="text-dark countdown" id="countdown">
+                                <i class="ri-time-line align-middle font-size-16 text-warning me-1"></i>
+                                <div class="time">
+                                    <span id="days" class="fs-5 fw-bold">00</span>
+                                    <span class="text-muted me-2">j</span>
+                                </div>
+                              <!-- Add more time elements here -->
+                            </span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <div class="">
                 <span class="text-muted">A partir de :</span>
                 <div class="d-flex">
-                  <h1 class="fw-bold text-warning m-0"><%=event.getBillets().get(0).getPrix()%></h1>
+                  <h1 class="fw-bold text-warning m-0"><%= 100 %></h1>
                   <span class="fw-bold text-warning">MAD</span>
                 </div>
               </div>
               <div class="">
-                <a href="#" class="btn btn-warning text-white fw-bold waves-effect waves-light">J'achéte</a>
+                <a href="<%= request.getContextPath() %>/Display?id=<%=event.getId()%>" class="btn btn-warning text-white fw-bold waves-effect waves-light">J'achéte</a>
               </div>
             </div>
           </div>
         </div>
       </div>
       <%
+            index++;
+          }
         }
       %>
     </div>
   </div>
 </div>
-
-
-
 
 <!-- JAVASCRIPT -->
 <script src="Assets/libs/jquery/jquery.min.js"></script>
@@ -287,3 +277,10 @@
 
 </body>
 </html>
+
+
+
+
+
+
+

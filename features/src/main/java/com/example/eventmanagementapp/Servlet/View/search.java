@@ -14,32 +14,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/home")
-public class HomeServlet extends HttpServlet {
+
+@WebServlet("/search")
+public class search extends HttpServlet {
 
     CategoryService categoryService=new CategoryService(new CategoryRepository());
     EventService eventService=new EventService(new EventRepository());
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        headToHome(req, resp);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        headToHome(req, resp);
-
-    }
-
-    private void headToHome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            req.setAttribute("events",eventService.findAll());
-            System.out.println(eventService.findAll());
+
+            req.setAttribute("events",eventService.findByName(req.getParameter("search")));
             req.setAttribute("categories", categoryService.findAll());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/newHomePage.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/search.jsp");
         dispatcher.forward(req, resp);
     }
 }
