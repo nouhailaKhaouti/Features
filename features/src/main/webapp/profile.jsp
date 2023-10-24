@@ -178,6 +178,7 @@ boolean isCode200 = codeAttribute != null && codeAttribute.toString().equals("20
                                         class="d-block h-auto ms-0 ms-sm-4 profile-img"
                                 />
                             </div>
+
                             <div class="flex-grow-1 mt-3 mt-sm-5 me-5">
                                 <div class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-5 flex-md-row flex-column gap-4">
                                     <div class="user-profile-info">
