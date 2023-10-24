@@ -28,6 +28,7 @@ public class EventServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         try {
             Long eventId = Long.valueOf(req.getParameter("id"));
             req.setAttribute("event", eventService.findById(eventId));

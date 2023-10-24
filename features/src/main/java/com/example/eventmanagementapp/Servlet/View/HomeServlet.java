@@ -22,15 +22,24 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            try {
-                req.setAttribute("events",eventService.findAll());
-                System.out.println(eventService.findAll());
-                req.setAttribute("categories", categoryService.findAll());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/newHomePage.jsp");
-            dispatcher.forward(req, resp);
+        headToHome(req, resp);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        headToHome(req, resp);
+
+    }
+
+    private void headToHome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            req.setAttribute("events",eventService.findAll());
+            System.out.println(eventService.findAll());
+            req.setAttribute("categories", categoryService.findAll());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/newHomePage.jsp");
+        dispatcher.forward(req, resp);
+    }
 }

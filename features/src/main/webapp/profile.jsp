@@ -90,9 +90,7 @@
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="ri-search-line"></i>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                         aria-labelledby="page-header-search-dropdown">
-
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
                         <form class="p-3" action="${pageContext.request.contextPath}/search" method="post">
                             <div class="mb-3 m-0">
                                 <div class="input-group">

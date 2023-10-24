@@ -54,6 +54,6 @@ public class EditProfileServlet extends HttpServlet {
         }
         req.getSession(true).setAttribute("message", response.getMessage());
         req.getSession(true).setAttribute("code", response.getCode());
-        resp.sendRedirect(req.getContextPath());
-    }
+        String referer = req.getHeader("Referer");
+        resp.setHeader("Location", referer);    }
 }
