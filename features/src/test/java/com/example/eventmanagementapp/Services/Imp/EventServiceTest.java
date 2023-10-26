@@ -60,17 +60,17 @@ public class EventServiceTest {
     public void testSaveEventWhenNullEventThen404() throws SQLException {
         ResponseEntity response = eventService.save(null, List.of(createValidBillet()));
 
-        assertEquals("the event your trying to insert is null please try again",404L,(long) response.getCode());
+        assertEquals("the event your trying to insert is null",404L,(long) response.getCode());
     }
 
     @Test
     public void testSaveEventWhenExpiredDateThen404() throws SQLException {
         Event event = createValidEvent();
-        event.setDate(new Date(0)); // Set an expired date
+        event.setDate(new Date(0));
 
         ResponseEntity response = eventService.save(event, List.of(createValidBillet()));
 
-        assertEquals("the event your trying to insert has an expired date you need to change the date so that it is superior to the current date",404L,(long) response.getCode());
+        assertEquals("the event your trying to insert has an expired date",404L,(long) response.getCode());
     }
 
     @Test
@@ -116,7 +116,7 @@ public class EventServiceTest {
     private Event createValidEvent() {
         Event event = new Event();
         event.setName("Test Event");
-        event.setDate(new Date(System.currentTimeMillis() + 86400000)); // 1 day in the future
+        event.setDate(new Date(System.currentTimeMillis() + 86400000));
         event.setHour(Time.valueOf("12:00:00"));
         event.setLieu("Test Location");
         event.setDescription("Test Description");
@@ -128,7 +128,7 @@ public class EventServiceTest {
         Event event = new Event();
         event.setId(id);
         event.setName("Test Event");
-        event.setDate(new Date(System.currentTimeMillis() + 86400000)); // 1 day in the future
+        event.setDate(new Date(System.currentTimeMillis() + 86400000));
         event.setHour(Time.valueOf("12:00:00"));
         event.setLieu("Test Location");
         event.setDescription("Test Description");
@@ -186,7 +186,7 @@ public class EventServiceTest {
 
     /*FindAll events function*/
     @Test()
-    public void testFindAllEventsException() throws SQLException {
+    public void testFindAllEventsException() {
         when(eventRepository.getAllEvents()).thenThrow(new SQLException());
 
         assertThrows(SQLException.class,()->eventService.findAll());
