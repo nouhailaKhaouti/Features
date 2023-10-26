@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,13 +33,12 @@
         </div>
         <% } %>
         <div class="interior-box">
-
             <div class="forms">
                 <!-- Login Form -->
                 <form action="${pageContext.request.contextPath}/logIn" class="login" method="post">
                     <!-- Logo Form-->
                     <div class="logo">
-                        <img src="./Assets/Images/logo.png" alt="CultureDevLogo">
+                        <img src="./Assets/Images/logo-f.png" alt="CultureDevLogo">
                     </div>
                     <!-- Head Form-->
                     <div class="head">
@@ -71,7 +71,7 @@
                 <form action="${pageContext.request.contextPath}/create_Account"  method="post" class="signup">
                     <!-- Logo Form-->
                     <div class="logo">
-                        <img src="./Assets/Images/logo.png" alt="CultureDevLogo">
+                        <img src="./Assets/Images/logo-f.png" alt="CultureDevLogo">
                     </div>
                     <!-- Head Form-->
                     <div class="head">
@@ -127,7 +127,7 @@
                     <div class="bullets">
                         <span class="active" data-value="1"></span>
                         <span data-value="2"></span>
-                        <span data-value="3 "></span>
+                        <span data-value="3"></span>
                     </div>
                 </div>
             </div>

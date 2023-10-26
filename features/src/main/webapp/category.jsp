@@ -200,7 +200,7 @@
             %>
             <div class="col-md-6 col-xl-3">
                 <div class="card">
-                    <img class="card-img-top img-fluid" src="Assets/Images/affiche<%= index %>.png" alt="Card image cap">
+                    <img class="card-img-top img-fluid" src="Assets/Images/carousel<%= index %>.png" alt="Card image cap">
                     <div class="card-body">
                         <div class="mb-3 d-block">
                             <div class="badge badge-card rounded me-2"><%= event.getCategory().getName() %></div>

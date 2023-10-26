@@ -87,7 +87,6 @@ public class UserService  {
     public ResponseEntity findByEmail(String email)throws SQLException{
         Optional<UserE> user=userRepositoryI.findByEmail(email);
         return user.map(userE -> new ResponseEntity("successfully retrieved the user  ", 200, userE)).orElseGet(() -> new ResponseEntity("this user doesn't exist ", 404));
-
     }
 
 }
