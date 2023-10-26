@@ -3,9 +3,7 @@ package com.example.eventmanagementapp.Services.Imp;
 import com.example.eventmanagementapp.Domain.*;
 import com.example.eventmanagementapp.Repositories.Imp.BilletRepository;
 import com.example.eventmanagementapp.Repositories.Imp.CategoryRepository;
-import com.example.eventmanagementapp.Repositories.Imp.EventRepository;
 import com.example.eventmanagementapp.Repositories.Imp.UserRepository;
-import com.example.eventmanagementapp.Repositories.facad.BilletRepositoryI;
 import com.example.eventmanagementapp.Repositories.facad.CategoryRepositoryI;
 import com.example.eventmanagementapp.Repositories.facad.EventRepositoryI;
 import com.example.eventmanagementapp.Repositories.facad.UserRepositoryI;
@@ -14,25 +12,40 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EventService {
-    private final EventRepositoryI eventRepositoryI;
+    private  EventRepositoryI eventRepositoryI;
 
     public EventService(EventRepositoryI eventRepositoryI){
         this.eventRepositoryI=eventRepositoryI;
     }
 
-    UserRepositoryI userRepositoryI=new UserRepository();
-    CategoryRepositoryI categoryRepositoryI=new CategoryRepository();
+    UserService userService=new UserService(new UserRepository());
+    CategoryService categoryService=new CategoryService(new CategoryRepository());
     BilletService billetService=new BilletService(new BilletRepository());
+
+    public void setUserRepositoryI(UserService user){
+        this.userService=user;
+    }
+
+
+    public void setCategoryRepositoryI(CategoryService category){
+        this.categoryService=category;
+    }
+
+    public void setBilletService(BilletService billet){
+        this.billetService=billet;
+    }
 
     public ResponseEntity save(Event event,List<Billet> billets) throws SQLException {
         if(event!=null){
             if(event.getDate().compareTo(new Date())>0){
-                Optional<UserE> user=userRepositoryI.findByEmail(event.getUser().getEmail());
-                if(user.isPresent()){
-                    event.setUser(user.get());
-                    Optional<Category> category=categoryRepositoryI.findById(event.getCategory().getId());
+                ResponseEntity user=userService.findByEmail(event.getUser().getEmail());
+                if(user.getObj()!=null){
+                    event.setUser((UserE) user.getObj());
+                    Optional<Category> category=categoryService.findById(event.getCategory().getId());
                     if(category.isPresent()) {
                         event.setCategory(category.get());
                         if (eventRepositoryI.save(event)) {
@@ -82,9 +95,9 @@ public class EventService {
                 if (eventRepositoryI.delete(event)) {
                     return new ResponseEntity("this event has been successfully deleted", 200);
                 }
-                return new ResponseEntity("an error has occurred while deleting this event please try again later ", 404);
+                return new ResponseEntity("an error has occurred while deleting this event please try again later", 404);
             }
-            return new ResponseEntity("this event doesn't exist ", 404);
+            return new ResponseEntity("this event doesn't exist", 404);
         }
         return new ResponseEntity("you cant delete this event , as the ticket already been sold",404);
     }
@@ -98,15 +111,15 @@ public class EventService {
    }
 
     public List<Event> findByUser(String email)throws SQLException{
-        Optional<UserE> user=userRepositoryI.findByEmail(email);
-        if(user.isPresent()) {
-            return eventRepositoryI.findByUser(user.get().getId());
+        ResponseEntity user=userService.findByEmail(email);
+        if(user.getObj()!=null) {
+            return eventRepositoryI.findByUser(((UserE) user.getObj()).getId());
         }
         return null;
     }
 
     public List<Event> findByCategory(Long id)throws SQLException{
-        Optional<Category> category=categoryRepositoryI.findById(id);
+        Optional<Category> category=categoryService.findById(id);
         if(category.isPresent()) {
             return eventRepositoryI.findByCategory(id);
         }
@@ -115,6 +128,17 @@ public class EventService {
    public List<Event> findByName(String name)throws SQLException{
         //TODO : VALIDATION
        return eventRepositoryI.getEventsByName(name);
+   }
+
+   public  List<EventDTO> stream_function()throws SQLException{
+       List<Event> events=eventRepositoryI.getAllEvents();
+       return events.stream().filter(e-> {
+           try {
+               return eventRepositoryI.CalculateTicket(e.getId())>20;
+           } catch (SQLException ex) {
+               throw new RuntimeException(ex);
+           }
+       }).filter(e->e.getDate().compareTo(new Date())<0).map(e-> new EventDTO(e.getName(),e.getDate())).collect(Collectors.toList());
    }
 
 }

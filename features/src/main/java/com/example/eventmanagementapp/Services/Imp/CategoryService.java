@@ -58,4 +58,8 @@ public class CategoryService {
         }
         return new ResponseEntity("The category your trying to delete doesn't exist",404);
     }
+
+    public Optional<Category> findById(Long id) throws SQLException{
+        return categoryRepositoryI.findById(id);
+    }
 }
